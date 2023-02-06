@@ -118,7 +118,7 @@ function CustomerHome(props) {
         </div>
       )}
       {searched && tiffinVendors.length === 0 && (
-        <h1>No tiffin vendors found!</h1>
+        <h1>Sorry, we could not find any vendor in this location!</h1>
       )}
     </React.Fragment>
   );
