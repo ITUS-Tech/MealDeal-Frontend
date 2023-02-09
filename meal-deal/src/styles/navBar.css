@@ -1,0 +1,17 @@
+
+.navbar{
+    background-color: #FFC004;
+    
+    height: 6rem;
+}
+
+.navbar-nav .nav-link{
+    color: #606060;
+}
+.navbar-nav .nav-link:hover{
+    color:#252525;
+}
+.navbar-nav{
+    margin: 0px 20px 0px auto;
+}
+
