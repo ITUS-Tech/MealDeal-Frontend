@@ -73,10 +73,10 @@ function NavBar(props) {
             <div></div>
           )}
           {(<ul className="navbar-nav ml-auto justify-content">
-              <button
+              {/* <button
                 className="nav-link btn"
                 onClick={() => navigate("/customer/vendor")}
-                >Vendor Details</button>
+                >Vendor Details</button> */}
                 </ul>)}
           {isLoggedIn && !isCustomer ? (
             <ul className="navbar-nav ml-auto justify-content">
