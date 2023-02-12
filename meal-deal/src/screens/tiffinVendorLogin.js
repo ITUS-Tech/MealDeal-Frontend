@@ -5,7 +5,7 @@ import "../styles/auth.css";
 function TiffinVendorLogin(props) {
   
   return (
-    <div></div>
+    <div>Hello </div>
   );
 }
 

@@ -8,7 +8,7 @@ function CustomerRegister(props) {
   
   return (
     <div className="card form-card shadow-lg">
-      
+      Hello hellooooo
     </div>
   );
 }
