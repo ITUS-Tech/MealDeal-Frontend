@@ -50,28 +50,30 @@ function CustomerHome(props) {
   const vendorsArray = JSON.parse(JSON.stringify(tiffinVendors));
   return (
     <React.Fragment>
-      <div id="background" className={!searched ? "bg-height" : ""}>
-        <h4 className="greeting"> {`Hi ${name}`}</h4>
-        <div className="input-group mb-3 ">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Search by city or pincode"
-            value={query}
-            onChange={({ currentTarget: input }) => setQuery(input.value)}
-          />
-          <button
-            className="btn btn-primary px-4"
-            type="button"
-            onClick={handleSearch}
-          >
-            <i className="fa fa-search" aria-hidden="true"></i>
-          </button>
+      <div className="container">
+        <div id="background" className={!searched ? "bg-height" : ""}>
+          <h4 className="greeting"> {`Hi ${name}`}</h4>
+          <div className="input-group">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search by city or pincode"
+              value={query}
+              onChange={({ currentTarget: input }) => setQuery(input.value)}
+            />
+            <button
+              className="btn btn-primary px-4"
+              type="button"
+              onClick={handleSearch}
+            >
+              <i className="fa fa-search" aria-hidden="true"></i>
+            </button>
+          </div>
         </div>
       </div>
 
       {vendorsArray.length !== 0 && (
-        <div className="container-fluid">
+        <div className="container">
           <div className="my-3">
             Sort By:
             <select
