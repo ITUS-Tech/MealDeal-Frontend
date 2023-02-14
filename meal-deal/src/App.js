@@ -9,7 +9,6 @@ import CustomerRegister from "./screens/customerRegister";
 import CustomerEditDetails from "./screens/customerEditDetails";
 import TiffinVendorHome from "./screens/tiffinVendorHome";
 import TiffinVendorLogin from "./screens/tiffinVendorLogin";
-import TiffinVendorRegister from "./screens/tiffinVendorRegister";
 import TiffinVendorEditDetails from "./screens/tiffinVendorEditDetails";
 import TiffinVendorDetails from "./screens/tiffinVendorDetails";
 import NavBar from "./screens/navBar";
@@ -130,10 +129,10 @@ function App() {
           path="/tiffin-vendor/login"
           element={<TiffinVendorLogin updateToken={handleToken} />}
         />
-        <Route
+        {/* <Route
           path="/tiffin-vendor/register"
           element={<TiffinVendorRegister updateToken={handleToken} />}
-        />
+        /> */}
         <Route
           path="/tiffin-vendor/edit"
           element={

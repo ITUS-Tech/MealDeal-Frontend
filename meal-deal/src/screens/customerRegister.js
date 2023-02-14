@@ -4,20 +4,22 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { clearToken } from "./services/clearJwt";
-import { registerCustomer as register } from "./services/customerService";
-import FormInput from "./common/formInput";
+import { clearToken } from "../services/clearJwt";
+import { registerCustomer as register } from "../services/customerService";
+import FormInput from "../common/formInput";
 
 import "../styles/auth.css";
+import "bootstrap/dist/css/bootstrap.css";
 
 function CustomerRegister(props) {
   const [customer, setCustomer] = useState({
     name: "",
+    lname:"",
     email: "",
     password: "",
-    area: "",
-    city: "",
-    pincode: "",
+    address: "",
+    phno:"",
+    type:""
   });
   let navigate = useNavigate();
   useEffect(() => {
@@ -42,6 +44,10 @@ function CustomerRegister(props) {
       <div className="card-body">
         <form>
           <h5 className="card-title mb-5">Customer Register</h5>
+          {/* <div className="form-group">
+            <input type="text" id="fname" placeholder="First Name" onChange={handleChange}/>
+          </div> */}
+          
           <FormInput
             value={customer.name}
             type="text"
