@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 import '../styles/signup.css'
+import FormInput from "../common/formInput";
 
 
 function SignupForm() {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [fname, setFName] = useState('');
+  const [lname, setLName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [address, setAddress] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [accountType, setAccountType] = useState('');
@@ -27,20 +30,20 @@ function SignupForm() {
       return emailRegex.test(email);
     };
   
-    const validatePhone = (phone) => {
+    const validatePhone = (phno) => {
       // Regex to validate phone number format
       const phoneRegex = /^\d{10}$/;
       return phoneRegex.test(phone);
     };
   
       // Validate first name
-      if (!firstName) {
+      if (!fname) {
         setErrorMessage('Please enter your first name.');
         return;
       }
   
       // Validate last name
-      if (!lastName) {
+      if (!lname) {
         setErrorMessage('Please enter your last name.');
         return;
       }
@@ -54,6 +57,11 @@ function SignupForm() {
     // Validate email
     if (!validateEmail(email)) {
       setErrorMessage('Please enter a valid email address.');
+      return;
+    }
+
+    if (!address(address)) {
+      setErrorMessage('Please enter your Address.');
       return;
     }
 
@@ -75,10 +83,11 @@ function SignupForm() {
     }
 
     const formData = {
-      firstName,
-      lastName,
+      fname,
+      lname,
       phone,
       email,
+      address,
       accountType,
       password,
       confirmPassword
@@ -105,43 +114,79 @@ function SignupForm() {
   };
 
   return (
+    <div className='class form-card shadow-lg'>
+    <h5 className="card-title mb-5"><center>Customer Register</center></h5>
     <form onSubmit={handleSubmit}>
-      <div  className='body'>
-        <label htmlFor="firstName">First Name:</label>
-        <input type="text" id="firstName" value={firstName} onChange={(event) => setFirstName(event.target.value)} required />
-      </div>
+    <FormInput
+            value={fname}
+            type="text"
+            id="fname"
+            name="First name"
+            onChange={(event) => setFName(event.target.value)} required
+          />
+          <FormInput
+            value={lname}
+            type="text"
+            id="lname"
+            name="Last name"
+            onChange={(event) => setLName(event.target.value)} required 
+            />
+          <FormInput
+            value={phone}
+            type="phone"
+            id="phone"
+            name="Phone no."
+            onChange={(event) => setPhone(event.target.value)} required 
+            />
+          <FormInput
+            value={email}
+            type="email"
+            id="email"
+            name="Email id."
+            onChange={(event) => setEmail(event.target.value)} required 
+            />
+            <FormInput
+            value={address}
+            type="text"
+            id="address"
+            name="Address"
+            onChange={(event) => setAddress(event.target.value)} required 
+            />
       <div>
-        <label htmlFor="lastName">Last Name:</label>
-        <input type="text" id="lastName" value={lastName} onChange={(event) => setLastName(event.target.value)} required />
-      </div>
-      <div>
-        <label htmlFor="phone">Phone No:</label>
-        <input type="text" id="phone" value={phone} onChange={(event) => setPhone(event.target.value)} required />
-      </div>
-      <div>
-        <label htmlFor="email">Email:</label>
-        <input type="email" id="email" value={email} onChange={(event) => setEmail(event.target.value)} required />
-      </div>
-      <div>
-          <label>Role:</label>
-          <div>
+          <label><center>Role:</center></label>
+          <div className='side-by-side'>
           <label htmlFor="vendor">Vendor</label>
             <input type="radio" name="role" value="customer" checked={accountType === 'customer'} onChange={(event) => setAccountType(event.target.value)} required />
             <label htmlFor="customer">Customer</label>
             <input type="radio" name="role" value="vendor" checked={accountType === 'vendor'} onChange={(event) => setAccountType(event.target.value)} required />
           </div>
       </div>
-      <div>
-        <label htmlFor="password">Password:</label>
-        <input type="password" id="password" value={password} onChange={(event) => setPassword(event.target.value)} required />
-      </div>
-      <div>
-        <label htmlFor="confirmPassword">Confirm Password:</label>
-        <input type="password" id="confirmPassword" value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} required />
-      </div>
+      <FormInput
+            value={password}
+            type="password"
+            id="password"
+            name="Password"
+            onChange={(event) => setPassword(event.target.value)} required 
+            />
+      <FormInput
+            value={confirmPassword}
+            type="password"
+            id="confirmPassword"
+            name="Confirm Password"
+            onChange={(event) => setConfirmPassword(event.target.value)} required 
+            />
       {errorMessage && <div>{errorMessage}</div>}
       <button type="submit">Sign Up</button>
+          <h6 className="card-title mt-2">
+            <center>
+            Already Registered?{" "}
+            <Link className="pointer" to="/customer/login">
+              Login
+            </Link>
+            </center>
+          </h6>
     </form>
+    </div>
   );
 }
 export default SignupForm;

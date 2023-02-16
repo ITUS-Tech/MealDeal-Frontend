@@ -8,7 +8,7 @@ function FormInput(props) {
         name={name}
         type={type}
         value={value}
-        className="form-control mb-2"
+        className="form-control mb-0 ml-3 mr-3"
         placeholder={name}
         onChange={onChange}
       />
