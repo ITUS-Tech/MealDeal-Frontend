@@ -10,7 +10,7 @@ function SignupForm() {
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [address, setAddress] = useState('');
+  //const [address, setAddress] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [accountType, setAccountType] = useState('');
@@ -60,10 +60,10 @@ function SignupForm() {
       return;
     }
 
-    if (!address(address)) {
-      setErrorMessage('Please enter your Address.');
-      return;
-    }
+    // if (!address(address)) {
+    //   setErrorMessage('Please enter your Address.');
+    //   return;
+    // }
 
     if (!accountType) {
       setErrorMessage('Account type is required');
@@ -71,7 +71,7 @@ function SignupForm() {
     }
 
     // Validate password
-    if (password.length < 8) {
+    if (password.length > 8) {
       setErrorMessage('Password must be at least 8 characters.');
       return;
     }
@@ -87,14 +87,14 @@ function SignupForm() {
       lname,
       phone,
       email,
-      address,
+     // address,
       accountType,
       password,
       confirmPassword
     };
 
      try {
-       const response = await fetch('http://localhost:49840/customer/register', {
+       const response = await fetch('http://localhost:8080/register', {
          method: 'POST',
          headers: {
            'Content-Type': 'application/json'
@@ -145,13 +145,13 @@ function SignupForm() {
             name="Email id."
             onChange={(event) => setEmail(event.target.value)} required 
             />
-            <FormInput
+            {/* <FormInput
             value={address}
             type="text"
             id="address"
             name="Address"
             onChange={(event) => setAddress(event.target.value)} required 
-            />
+            /> */}
       <div>
           <label><center>Role:</center></label>
           <div className='side-by-side'>
