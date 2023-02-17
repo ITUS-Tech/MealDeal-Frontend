@@ -1,16 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import config from "../config.json";
 import "../styles/navBar.css";
 
 function NavBar(props) {
-  const { isLoggedIn, isCustomer } = props.auth;
+  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [isCustomer, setIsCustomer] = useState(false);
   let navigate = useNavigate();
+  const userId= localStorage.getItem("userId") || -1;
+  const type= localStorage.getItem("type");
+  if(userId>-1)
+    setLoggedIn(true);
+  if(type==="customer")
+    setIsCustomer= true;
 
   const logOut = () => {
-    localStorage.removeItem(config.localStorageKey);
-    props.updateToken(null, true);
+    localStorage.removeItem("userId");
     isCustomer ? navigate("/customer/login") : navigate("/tiffin-vendor/login");
   };
 
