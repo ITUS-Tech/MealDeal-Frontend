@@ -9,10 +9,14 @@ import axios from "axios";
 function Cart(props) {
   const [cart, setCart] = useState({});
   const [items, setItems] = useState([]);
+  const [isLoggedIn, setLoggedIn] = useState(false);
+  const userId= localStorage.getItem("userId") || -1;
+  if(userId>-1)
+    setLoggedIn(true);
 
 
   useEffect(() => {
-      axios.get(`http://localhost:8080/cart/1`)
+      axios.get(`http://localhost:8080/cart/${userId}`)
       .then((respnse) => {
         setCart(respnse.data);
         setItems(respnse.data.items);
