@@ -9,9 +9,44 @@ function LoginPage() {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  function handleLogin(event) {
+  const handleLogin = async (event) => {
     event.preventDefault();
-    // Add code here to handle the login attempt
+    
+    const validateEmail = (email) => {
+      // Regex to validate email format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    };
+
+    if (!validateEmail(email)) {
+      setErrorMessage('Please enter a valid email address.');
+      return;
+    }
+
+    const formData = {email, password};
+
+    try {
+       await fetch('http://localhost:8080/login', {
+         method: 'POST',
+         headers: {
+           'Content-Type': 'application/json'
+         },
+         body: JSON.stringify(formData)
+       }).then((response) => {
+        if (response.ok) {
+         return response.json();
+        } else {
+          setErrorMessage('Wrong with response!');
+        }
+       }).then((res) => {
+        console.log(res);
+        localStorage.setItem("userId", res);
+        localStorage.setItem("type", "customer");
+        window.location.href = '/';
+       });
+     } catch (error) {
+       setErrorMessage('Something went wrong, please try again later.');
+     }
   }
 
   return (
@@ -22,18 +57,19 @@ function LoginPage() {
               value={email}
               type="text"
               name="Email"
+              id="email"
               onChange={event => setEmail(event.target.value)}
             />
         <FormInput
               value={password}
               type="password"
               name="Password"
+              id="password"
               onChange={event => setPassword(event.target.value)}
             />
         <button type="submit">Login</button>
         {errorMessage && <div className="error-message">{errorMessage}</div>}
       </form>
-      <p><center>Don't have an account?</center></p>
       <h6 className="message">
         <center>
               Not a Customer?{" "}
