@@ -41,7 +41,7 @@ function LoginPage() {
        }).then((res) => {
         console.log(res);
         localStorage.setItem("userId", res);
-        localStorage.setItem("type", "customer");
+        localStorage.setItem("type", "vendor");
         window.location.href = '/';
        });
      } catch (error) {
@@ -52,36 +52,35 @@ function LoginPage() {
   return (
     <div className='card form-card shadow-lg'>
       <form onSubmit={handleLogin}>
-      <h5 className="card-title mb-5">Customer Login</h5>
+      <h5 className="card-title mb-5">Vendor Login</h5>
       <FormInput
               value={email}
               type="text"
               name="Email"
-              id="email"
               onChange={event => setEmail(event.target.value)}
             />
         <FormInput
               value={password}
               type="password"
               name="Password"
-              id="password"
               onChange={event => setPassword(event.target.value)}
             />
         <button type="submit">Login</button>
         {errorMessage && <div className="error-message">{errorMessage}</div>}
       </form>
+      <p><center>Don't have an account?</center></p>
       <h6 className="message">
         <center>
-              Not a Customer?{" "}
-              <Link className="pointer" to="/tiffin-vendor/login">
-                Tiffin Vendor
+              Not a Tiffin Vendor?{" "}
+              <Link className="pointer" to="/customer/login">
+                Customer
               </Link>
               </center>
             </h6>
             <h6 className="message">
               <center>
               Not Registered?{" "}
-              <Link className="pointer" to="/customer/register">
+              <Link className="pointer" to="/tiffin-vendor/register">
                 Register
               </Link>
               </center>
