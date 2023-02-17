@@ -15,6 +15,10 @@
   margin: 1.5rem 0;
 }
   
+.card-content{
+  padding: 1.5rem;
+}
+
   /* #background {
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)),
       url("../../public/images/background.jpg");

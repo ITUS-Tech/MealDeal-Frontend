@@ -6,20 +6,20 @@ import "../styles/tiffinVendorCard.css";
 import tiffin from  "../images/tiffin.jpg";
 
 function TiffinVendorCard(props) {
-  const { businessName, hasVeg, monthRate, rating, _id } = props.vendor;
+  const { vendorName, hasVeg, monthRate, rating, _id } = props.vendor;
   let navigate = useNavigate();
   return (
     <div
       className="tiffin-vendor-card col-lg-4 col-md-6 col-sm-12 my-2 hover-card"
       onClick={() => {
-        navigate(`/customer/vendor/${_id}`);
+        navigate(`/vendor/${_id}`);
       }}
     >
       <div className="card pointer">
         <div className="card-body p-0">
           <img className="card-image" src={tiffin} alt="Tiffin image"/>
           <div className="p-3">
-            <h4 className="card-title">{businessName}</h4>
+            <h4 className="card-title">{vendorName}</h4>
             <div className="card-subtitle text-muted">
               <p className={rating.numberOfRatings > 0 ? "d-inline" : "d-none"}>
                 Rating:{" "}
