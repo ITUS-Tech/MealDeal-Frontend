@@ -1,24 +1,32 @@
 
 .input-group {
-    width: 43rem !important;
-    height: 3rem;
-    margin: auto;
-    margin-top: 8rem;
-  }
+  width: 26rem !important;
+  height: 4rem;  
+  margin: 1.5rem 0;
+}
+
+.input-group .form-control{
+  border: 1px solid #606060 !important;
+  border-radius: 0px;
+}
 
 .greeting{
-  color: #e7e7e7;
-  padding: 5rem;
+  color: #606060;
+  margin: 1.5rem 0;
 }
   
-  #background {
+.card-content{
+  padding: 1.5rem;
+}
+
+  /* #background {
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)),
       url("../../public/images/background.jpg");
-  }
+  } */
   
-  .bg-height {
+  /* .bg-height {
     height: 93.8vh;
-  }
+  } */
   
   @media (max-width: 650px) {
     .input-group,
