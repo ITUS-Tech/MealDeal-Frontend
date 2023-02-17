@@ -112,9 +112,16 @@ function App() {
           }
         />
 
+        {/* <Route
+          path={`
+          /vendor/`}
+          element={<TiffinVendorDetails auth={state} />
+        }
+        /> */}
+
         <Route
-          path={`/customer/vendor/:id`}
-          element={<TiffinVendorDetails auth={state} />}
+          path="/vendor/"
+          element={<TiffinVendorDetails auth={state} updateToken={handleToken} />}
         />
 
         <Route
