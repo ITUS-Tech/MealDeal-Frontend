@@ -9,7 +9,6 @@ import CustomerRegister from "./screens/customerRegister";
 import CustomerEditDetails from "./screens/customerEditDetails";
 import TiffinVendorHome from "./screens/tiffinVendorHome";
 import TiffinVendorLogin from "./screens/tiffinVendorLogin";
-import TiffinVendorRegister from "./screens/tiffinVendorRegister";
 import TiffinVendorEditDetails from "./screens/tiffinVendorEditDetails";
 import TiffinVendorDetails from "./screens/tiffinVendorDetails";
 import NavBar from "./screens/navBar";
@@ -19,6 +18,7 @@ import config from "./config.json";
 import "./App.css";
 import CustomerSubscriptions from "./screens/customerSubscriptions";
 import TiffinVendorSubscriptions from "./screens/tiffinVendorSubscriptions";
+import Cart from "./screens/Cart";
 
 function App() {
   const defaultState = {
@@ -83,6 +83,10 @@ function App() {
           element={<CustomerRegister updateToken={handleToken} />}
         />
         <Route
+          path="/cart"
+          element={<Cart/>}
+        />
+        <Route
           path="/customer/edit"
           element={
             <ProtectedRoute
@@ -124,16 +128,14 @@ function App() {
               <TiffinVendorHome auth={state} />
             </ProtectedRoute>
           }
-        />
-
         <Route
           path="/tiffin-vendor/login"
           element={<TiffinVendorLogin updateToken={handleToken} />}
         />
-        <Route
+        {/* <Route
           path="/tiffin-vendor/register"
           element={<TiffinVendorRegister updateToken={handleToken} />}
-        />
+        /> */}
         <Route
           path="/tiffin-vendor/edit"
           element={
