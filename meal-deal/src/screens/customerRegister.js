@@ -2,19 +2,18 @@ import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import '../styles/signup.css'
 import FormInput from "../common/formInput";
-// import Cookies from 'js-cookie';
 
 
 function SignupForm() {
   const [fname, setFName] = useState('');
   const [lname, setLName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [phno, setPhno] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [address, setAddress] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [accountType, setAccountType] = useState('');
+  const [type, setType] = useState('');
 
   
   const handleSubmit = async (event) => {
@@ -34,7 +33,7 @@ function SignupForm() {
     const validatePhone = (phno) => {
       // Regex to validate phone number format
       const phoneRegex = /^\d{10}$/;
-      return phoneRegex.test(phone);
+      return phoneRegex.test(phno);
     };
   
       // Validate first name
@@ -50,7 +49,7 @@ function SignupForm() {
       }
 
       // Validate phone number
-    if (!validatePhone(phone)) {
+    if (!validatePhone(phno)) {
       setErrorMessage('Please enter a valid 10-digit phone number.');
       return;
     }
@@ -66,7 +65,7 @@ function SignupForm() {
     //   return;
     // }
 
-    if (!accountType) {
+    if (!type) {
       setErrorMessage('Account type is required');
       return;
     }
@@ -86,10 +85,10 @@ function SignupForm() {
     const formData = {
       fname,
       lname,
-      phone,
+      phno,
       email,
       address,
-      accountType,
+      type,
       password,
       confirmPassword
     };
@@ -108,9 +107,8 @@ function SignupForm() {
           setErrorMessage('Wrong with response!');
         }
        }).then((res) => {
-         console.log(res.id, res.name);
-        //  Cookies.set('userId', res.id);
-        //  Cookies.set('name', res.name);
+        console.log(res.id, res.name);
+        localStorage.setItem('userId', res.id);
           window.location.href = '/';
        });
      } catch (error) {
@@ -137,11 +135,11 @@ function SignupForm() {
             onChange={(event) => setLName(event.target.value)} required 
             />
           <FormInput
-            value={phone}
-            type="phone"
-            id="phone"
+            value={phno}
+            type="text"
+            id="phno"
             name="Phone no."
-            onChange={(event) => setPhone(event.target.value)} required 
+            onChange={(event) => setPhno(event.target.value)} required 
             />
           <FormInput
             value={email}
@@ -160,10 +158,10 @@ function SignupForm() {
       <div>
           <label><center>Role:</center></label>
           <div className='side-by-side'>
-          <label htmlFor="vendor">Vendor</label>
-            <input type="radio" name="role" value="customer" checked={accountType === 'customer'} onChange={(event) => setAccountType(event.target.value)} required />
-            <label htmlFor="customer">Customer</label>
-            <input type="radio" name="role" value="vendor" checked={accountType === 'vendor'} onChange={(event) => setAccountType(event.target.value)} required />
+          <label htmlFor="vendor">Customer</label>
+            <input type="radio" name="role" value="customer" checked={type === 'customer'} onChange={(event) => setType(event.target.value)} required />
+            <label htmlFor="customer">Vendor</label>
+            <input type="radio" name="role" value="vendor" checked={type === 'vendor'} onChange={(event) => setType(event.target.value)} required />
           </div>
       </div>
       <FormInput
