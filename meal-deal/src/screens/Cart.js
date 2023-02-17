@@ -61,7 +61,7 @@ function Cart(props) {
           <tbody>
             {items.map((item, index) => (
               <tr>
-                <td>{item.itemName}</td>
+                <td>{item.subscription}</td>
                 <td>{item.price}</td>
                 <td>
                   <Button variant="outline-danger" size="sm" onClick={() => handleQuant(index, false)}>-</Button>
