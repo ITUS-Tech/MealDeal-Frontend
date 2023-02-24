@@ -135,6 +135,7 @@ function App() {
               <TiffinVendorHome auth={state} />
             </ProtectedRoute>
           }
+          />
         <Route
           path="/tiffin-vendor/login"
           element={<TiffinVendorLogin updateToken={handleToken} />}
