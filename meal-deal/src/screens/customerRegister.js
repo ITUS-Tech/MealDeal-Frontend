@@ -117,52 +117,53 @@ function SignupForm() {
   };
 
   return (
-    <div className='class form-card shadow-lg'>
-    <h5 className="card-title mb-5"><center>Customer Register</center></h5>
+    <div className='class login-card'>
+    <h5 className="card-title m-3 text-center">Customer Register</h5>
     <form onSubmit={handleSubmit}>
-    <FormInput
-            value={fname}
-            type="text"
-            id="fname"
-            name="First name"
-            onChange={(event) => setFName(event.target.value)} required
-          />
-          <FormInput
-            value={lname}
-            type="text"
-            id="lname"
-            name="Last name"
-            onChange={(event) => setLName(event.target.value)} required 
-            />
-          <FormInput
-            value={phno}
-            type="text"
-            id="phno"
-            name="Phone no."
-            onChange={(event) => setPhno(event.target.value)} required 
-            />
-          <FormInput
-            value={email}
-            type="email"
-            id="email"
-            name="Email id."
-            onChange={(event) => setEmail(event.target.value)} required 
-            />
-            <FormInput
-            value={address}
-            type="text"
-            id="address"
-            name="Address"
-            onChange={(event) => setAddress(event.target.value)} required 
-            />
-      <div>
-          <label><center>Role:</center></label>
-          <div className='side-by-side'>
-          <label htmlFor="vendor">Customer</label>
-            <input type="radio" name="role" value="customer" checked={type === 'customer'} onChange={(event) => setType(event.target.value)} required />
-            <label htmlFor="customer">Vendor</label>
-            <input type="radio" name="role" value="vendor" checked={type === 'vendor'} onChange={(event) => setType(event.target.value)} required />
-          </div>
+      
+      <FormInput
+        value={fname}
+        type="text"
+        id="fname"
+        name="First name"
+        onChange={(event) => setFName(event.target.value)} required
+      />
+      <FormInput
+        value={lname}
+        type="text"
+        id="lname"
+        name="Last name"
+        onChange={(event) => setLName(event.target.value)} required 
+        />
+      <FormInput
+        value={phno}
+        type="text"
+        id="phno"
+        name="Phone number"
+        onChange={(event) => setPhno(event.target.value)} required 
+        />
+      <FormInput
+        value={email}
+        type="email"
+        id="email"
+        name="Email address"
+        onChange={(event) => setEmail(event.target.value)} required 
+        />
+        <FormInput
+        value={address}
+        type="text"
+        id="address"
+        name="Address"
+        onChange={(event) => setAddress(event.target.value)} required 
+        />
+      <div className='form-group'>
+        <h6>Role:</h6>
+        <div className='side-by-side'>
+        <label htmlFor="vendor">Customer</label>&nbsp;&nbsp;
+          <input class="form-check-input" type="radio" name="role" value="customer" checked={type === 'customer'} onChange={(event) => setType(event.target.value)} required />
+        &nbsp;&nbsp;<label htmlFor="customer">Vendor</label>&nbsp;&nbsp;
+          <input class="form-check-input" type="radio" name="role" value="vendor" checked={type === 'vendor'} onChange={(event) => setType(event.target.value)} required />
+        </div>
       </div>
       <FormInput
             value={password}
@@ -179,8 +180,8 @@ function SignupForm() {
             onChange={(event) => setConfirmPassword(event.target.value)} required 
             />
       {errorMessage && <div>{errorMessage}</div>}
-      <button type="submit">Sign Up</button>
-          <h6 className="card-title mt-2">
+      <button className='btn btn-primary d-flex' type="submit">Sign Up</button>
+          <h6 className="card-title mt-3">
             <center>
             Already Registered?{" "}
             <Link className="pointer" to="/customer/login">

@@ -5,9 +5,14 @@
   margin: 1.5rem 0;
 }
 
+
 .input-group .form-control{
-  border: 1px solid #606060 !important;
-  border-radius: 0px;
+  margin-top: 0;
+}
+
+.input-group .form-control:focus{
+  box-shadow: none;
+  border: 1.5px solid #606060 !important;
 }
 
 .greeting{

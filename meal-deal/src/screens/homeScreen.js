@@ -60,17 +60,7 @@ function CustomerHome(props) {
   }, [])
 
   const handleSearch = async (e) => {
-    console.log(searchQuery);
-      if (searchQuery.length > 50) return;
-      const res = await getTiffinVendors(searchQuery);
-      if (res === null) return;
-      if (Array.isArray(res)) {
-        sessionStorage.setItem("tiffin_wale_search", searchQuery);
-        setFilteredTiffinVendors(res);
-        setSearched(true);
-      } else {
-        toast.error("Invalid city or pincode");
-      }    
+      console.log(searchQuery);
   };
 
       
@@ -101,7 +91,7 @@ function CustomerHome(props) {
             <div>
               <div className="container"> 
                 <div className="row">
-                  <div className="col-3">
+                  <div className="col-lg-3 col-md-3 col-sm-6 col-xs-6">
                       <select
                         className="form-select"
                         onChange={({ target }) => setSortBy(target.value)}
@@ -112,7 +102,7 @@ function CustomerHome(props) {
                         <option value="rating">veg</option>
                       </select>
                   </div>
-                  <div className="col-3">
+                  <div className="col-lg-3 col-md-3 col-sm-6 col-xs-6">
                              
                       <label className="switch">                        
                         <input
@@ -128,7 +118,7 @@ function CustomerHome(props) {
                       <span className="p-3">Veg Only?{" "}</span>
                   </div>
                 </div>         
-                <div className="row tiffin-vendor-detail mt-3">
+                <div className="row mt-3">
                   {tiffinVendors && tiffinVendors.length > 0 && tiffinVendors.filter(
                     (value) => {
                       if (searchQuery === '' && !vegFilter) {
@@ -142,7 +132,7 @@ function CustomerHome(props) {
                       }
                   }).map((value) => ( 
                     <div className="col-lg-3 col-md-3 col-sm-12" key={value.id}>
-                      <div className="tiffin-vendor-card shadow-sm">                  
+                      <div className="tiffin-vendor-card card shadow-sm">                  
                         <div className="card-body">
                           <img className="card-image" src={value.image} alt="Tiffin image"/>  
                           <div className="card-content">                  

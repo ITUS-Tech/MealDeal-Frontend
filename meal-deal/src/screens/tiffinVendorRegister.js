@@ -50,7 +50,7 @@ function TiffinVendorRegister(props) {
   return (
     <React.Fragment>
       <div
-        className="card form-card shadow-lg"
+        className="login-card"
         style={{ margin: "10px auto", width: "450px" }}
       >
         <div className="card-body">
@@ -149,16 +149,16 @@ function TiffinVendorRegister(props) {
               />
             </div>
 
-            <button className="btn btn-primary" onClick={handleRegister}>
+            <button className="btn btn-primary mx-auto" onClick={handleRegister}>
               Register
             </button>
-            <h5 className="message">
+            <h5 className="message mt-3">
               Not a Tiffin Vendor?{" "}
               <Link className="pointer" to="/customer/login">
                 Customer
               </Link>
             </h5>
-            <h5 className="message">
+            <h5 className="message mt-1">
               Already Registered?{" "}
               <Link className="pointer" to="/tiffin-vendor/login">
                 Login
