@@ -50,9 +50,9 @@ function LoginPage() {
   }
 
   return (
-    <div className='card form-card shadow-lg'>
+    <div className='login-card'>
       <form onSubmit={handleLogin}>
-      <h5 className="card-title mb-5">Vendor Login</h5>
+      <h5 className="card-title m-3 text-center">Vendor Login</h5>
       <FormInput
               value={email}
               type="text"
@@ -65,11 +65,11 @@ function LoginPage() {
               name="Password"
               onChange={event => setPassword(event.target.value)}
             />
-        <button type="submit">Login</button>
+        <button className="btn btn-primary mx-auto" type="submit">Login</button>
         {errorMessage && <div className="error-message">{errorMessage}</div>}
       </form>
-      <p><center>Don't have an account?</center></p>
-      <h6 className="message">
+      <p className='mt-3'><center>Don't have an account?</center></p>
+      <h6 className="message mt-3">
         <center>
               Not a Tiffin Vendor?{" "}
               <Link className="pointer" to="/customer/login">
@@ -77,7 +77,7 @@ function LoginPage() {
               </Link>
               </center>
             </h6>
-            <h6 className="message">
+            <h6 className="message mt-1">
               <center>
               Not Registered?{" "}
               <Link className="pointer" to="/tiffin-vendor/register">

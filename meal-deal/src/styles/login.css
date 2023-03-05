@@ -16,12 +16,12 @@ body {
     padding: 20px;
   }
   
-  form {
+  /* form {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 50px;
-  }
+  } */
   
   label {
     display: flex;
@@ -36,7 +36,7 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
-    width: 300px;
+    /* width: 300px; */
     max-width: 100%;
   }
   
@@ -79,5 +79,35 @@ body {
   
   .register-links a:hover {
     text-decoration: underline;
-  }
+  } 
   
+  .login-card{
+    margin: auto;
+    padding: 1rem;
+    width: 25%;
+    box-shadow: 1px 1px 12px #e5e5e5;
+    background: #fff;
+    border-radius: 20px;
+  }
+
+  form .btn-primary{
+    margin: 0 auto;
+    display: flex;
+    padding: 0.5rem 2rem;
+  }
+
+  .btn-primary{
+    background-color: #FFC004 !important;
+    color:#252525 !important;
+    border: 1px solid #FFC004 !important;
+  }
+
+  .btn-primary:focus, .btn-primary:hover{
+    background-color: #FFC004;
+    color:#252525;
+  }
+
+  .form-control:focus{
+    box-shadow: none !important;
+    border: 1.5px solid #606060 !important;
+  }

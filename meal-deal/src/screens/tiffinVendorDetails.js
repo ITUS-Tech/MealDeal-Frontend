@@ -111,7 +111,7 @@ function TiffinVendorDetails(props) {
                       <ul>
                         {Object.entries(value.prices).map(([type, price]) => (
                           <li key={type}>
-                            {type}: {price}
+                            {type}: {price.map}
                           </li>
                         ))}
                       </ul>                                 
