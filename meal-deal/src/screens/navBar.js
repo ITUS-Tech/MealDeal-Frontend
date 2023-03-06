@@ -1,29 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+
+import config from "../config.json";
 import "../styles/navBar.css";
 
 function NavBar(props) {
-  const [isLoggedIn, setLoggedIn] = useState(false);
-  const [isCustomer, setIsCustomer] = useState(false);
+  const { isLoggedIn, isCustomer } = props.auth;
   let navigate = useNavigate();
-  const userId= localStorage.getItem("userId") || -1;
-  const type= localStorage.getItem("type");
-  if(userId>-1)
-    setLoggedIn(true);
-  if(type==="customer")
-    setIsCustomer= true;
 
   const logOut = () => {
-    localStorage.removeItem("userId");
+    localStorage.removeItem(config.localStorageKey);
+    props.updateToken(null, true);
     isCustomer ? navigate("/customer/login") : navigate("/tiffin-vendor/login");
   };
 
   return (
     <nav className="navbar navbar-expand-md navbar-dark">
-      <div className="container">
+      <div className="container-fluid ">
         <Link
           to={isLoggedIn && !isCustomer ? "/tiffin-vendor" : "/customer"}
-          className="navbar-brand fs-4 fw-bold"
+          className="navbar-brand fs-4 mx-4 fw-bold"
           style={{color: "#252525"}}>
           Meal Deal
         </Link>
@@ -76,12 +72,6 @@ function NavBar(props) {
           ) : (
             <div></div>
           )}
-          {(<ul className="navbar-nav ml-auto justify-content">
-              {/* <button
-                className="nav-link btn"
-                onClick={() => navigate("/customer/vendor")}
-                >Vendor Details</button> */}
-                </ul>)}
           {isLoggedIn && !isCustomer ? (
             <ul className="navbar-nav ml-auto justify-content">
               <button

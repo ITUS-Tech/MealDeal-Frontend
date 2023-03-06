@@ -1,4 +1,4 @@
-import config from "../config.json";
+import config from "../../config.json";
 import axios from "../services/axios";
 
 export function getPrice(days, monthRate, meals) {
