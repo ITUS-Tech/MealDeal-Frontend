@@ -75,7 +75,7 @@ function removePrefixesFromError(ex) {
 
 export function getName(token) {
   try {
-    return jwtDecode(token).vendorName;
+    return jwtDecode(token).businessName;
   } catch (ex) {
     return null;
   }
@@ -98,7 +98,7 @@ export async function getTiffinVendor(token) {
 
 export async function getTiffinVendorById(id) {
   try {
-    const res = await axios.get(`http://localhost:8080/vendor/${id}`);
+    const res = await axios.get(`${config.apiUrl}/tiffin-vendor/${id}`);
     return res.data;
   } catch (ex) {
     if (ex === null) return null;
@@ -136,34 +136,20 @@ export async function registerTiffinVendor(tiffinVendor, updateToken) {
   }
 }
 
-export async function getTiffinVendors() {
-  let data = {};
-  const fetchPromise = fetch("http://localhost:8080/vendor/", {    
-    method: 'GET',    
-    withCredentials: true,    
-    crossorigin: true,    
-    mode: 'no-cors', 
-    headers: { 'Content-Type' : 'application/json'},      
-  })
-  .then((response) => response.json())
-  .then(res => {data = res})
-  .catch((err)=>{console.log(err)})
-  return data;
+export async function getTiffinVendors(query) {
+  try {
+    let res;
+    isNaN(query)
+      ? (res = await axios.get(`${config.apiUrl}/tiffin-vendor/city/${query}`))
+      : (res = await axios.get(
+          `${config.apiUrl}/tiffin-vendor/pincode/${query}`
+        ));
+    return res.data;
+  } catch (ex) {
+    if (ex === null) return null;
+    return ex.response;
+  }
 }
-
-// export async function getTiffinVendors(query) {
-//   console.log(query);
-//   try {    
-//     let res;
-//     isNaN(query)
-//       ? (res = await axios.get(`http://localhost:8080/vendor`))
-//       : (res = await axios.get(`http://localhost:8080/vendor`));
-//     return res.data;
-//   } catch (ex) {
-//     if (ex === null) return null;
-//     return ex.response;
-//   }
-// }
 
 export async function editTiffinVendor(tiffinVendor, token, updateToken) {
   const tiffinVendorToSend = makeTiffinVendorToSend(tiffinVendor);
