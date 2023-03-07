@@ -5,25 +5,95 @@ import "../styles/tiffinVendorDetails.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useParams } from "react-router-dom";
+import { getDate } from "date-fns";
+import "../styles/vendorDetails.css";
+
 
 function TiffinVendorDetails(props) {
 
-  var Day = "Day";
-  var Weekdays = "Weekdays";
-  var Fortnight = "Fortnight";
-  var Month = "Month";
-  var Week = "Week";
   const params = useParams();
   const [data, setData] = useState({});
   const [prices, setPrices] = useState({});
   const [menu, setMenu] = useState({});
   const [showHide, setShowHide] = useState("");
   const [showPrice, setShowPrice] = useState("");
-  const [startDate, setStartDate] = useState(null);
+  const [selectedOption, setSelectedOption] = useState('Day');
+  const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(null);
   const [quantity, setQuantity] = useState(0);
-  // const [price, setPrice] = useState("")
-  
+  const [isSelected, setIsSelected]= useState(false);
+  const [index, setIndex] = useState(0);
+  // const [Cdate, setDate] = useState(new Date().toLocaleDateString('fr-FR'));
+  const [opacity, setOpacity] = useState(0.1);
+
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
+  const handleStartDateChange = (date) => {
+    setStartDate(date);
+    setEndDate(new Date(date.getTime() + 24 * 60 * 60 * 1000));
+  };
+
+  const handleEndDateChange = (date) => {
+    setEndDate(date);
+  };
+
+  const isWeekend = (date) => {
+    const day = date.getDay();
+    return day === 0 || day === 6;
+  };
+
+  const renderDatePickers = () => {
+    switch (selectedOption) {
+      case "Day":
+        return null;
+      case "Week":
+        return (
+          <div>
+            <label htmlFor="startDate">Start Date: </label>
+            <DatePicker
+              selected={startDate}
+              onChange={handleStartDateChange}
+              dateFormat="dd/MM/yyyy"
+              filterDate={isWeekend}
+              placeholderText="Select start date"
+            />
+            <label htmlFor="endDate">End Date: </label>
+            <DatePicker
+              selected={endDate}
+              onChange={handleEndDateChange}
+              dateFormat="dd/MM/yyyy"
+              filterDate={isWeekend}
+              minDate = {startDate}
+              placeholderText="Select end date"
+            />
+          </div>
+        );
+      default:
+        return (
+          <div>
+            <label htmlFor="startDate">Start Date: </label>
+            <DatePicker
+              selected={startDate}
+              onChange={handleStartDateChange}
+              minDate = {new Date()}
+              dateFormat="dd/MM/yyyy"
+              placeholderText="Select start date"
+            />
+            <label htmlFor="endDate">End Date: </label>
+            <DatePicker
+              selected={endDate}
+              onChange={handleEndDateChange}
+              minDate =  {startDate}
+              dateFormat="dd/MM/yyyy"
+              placeholderText="Select end date"
+            />
+          </div>
+        );
+    }
+  };
+
   const handleIncrease = () => {
     setQuantity(quantity + 1);
   };
@@ -35,22 +105,56 @@ function TiffinVendorDetails(props) {
   const handleshow=e=>{
     const getshow= e.target.value;
     setShowHide(getshow);
+    setShowPrice(prices[getshow]);
+    setIsSelected=true;
   }
 
-  const handlepriceshow=e=>{
-  const getshowprice= e.target.value;
-    setShowPrice(getshowprice);
-  }
 
-  const onChange = (dates) => {
-    const [start, end] = dates;
-    setStartDate(start);
-    setEndDate(end);
+  // var dataStore ={
+  //   userId: 1,
+  //   vendorName : data.vendorName,
+  //   items:
+  //   [
+  //   {
+  //     subscription : showHide,
+  //     price: showPrice,
+  //     quantity : quantity,
+      
+  //   }
+  //   ]
+  //   }
+
+  const images = [
+    "https://picsum.photos/id/1015/800/600",
+    "https://picsum.photos/id/1016/800/600",
+    "https://picsum.photos/id/1018/800/600",
+  ];
+
+  const style = {
+    position: "fixed",
+    top:0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    width: "100%",
+    height: "100%",
+    backgroundImage: `url(${images[index]})`,
+    backgroundSize: "cover",
+    transition: "opacity 1s ease-in-out",
+    opacity: opacity,
+    zIndex: 0
   };
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prevIndex) => (prevIndex + 1) % images.length);
+      setOpacity(0.1);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
-    const url = `http://localhost:8080/vendor/${params.id}`
+    const url = `http://mealdeal.herokuapp.com/vendor/${params.id}`
     const fetchData = async () => {
         try {
             const response = await fetch(url).then((response)=> response.json()).then((res)=>{
@@ -61,9 +165,6 @@ function TiffinVendorDetails(props) {
               console.log(res.menu);
               console.log(res.prices)
             });
-            //const json = await response.json(); 
-            //console.log(json.vendorName.data);
-            //setData(json.vendorName.data);
         } catch (error) {
             console.log("error", error);
         }
@@ -72,151 +173,116 @@ function TiffinVendorDetails(props) {
     fetchData();
 }, []);
 
-var priceday = prices.Day;
-var priceWeekdays = prices.Weekdays;
-var priceWeek = prices.Week;
-var priceFortnight = prices.Fortnight;
-var priceMonth = prices.Month;
-
-// const cartData = {
-//   "userId":1,
-//   "vendorName":data.vendorName,
-//   "items" : {
-//   "subscription": {showHide},
-//   "price": 110,
-//   "quantity": {quantity}
-//   }
-// }
-// const sendData = async () => {
-//   try {
-//     await fetch('http://localhost:8080/cart/add/1',{
-//       method: 'PUT',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify(cartData)
-//     });
-
-//       //const json = await response.json(); 
-//       //console.log(json.vendorName.data);
-//       //setData(json.vendorName.data);
-//   } catch (error) {
-//       console.log("error", error);
-//   }
-// };
-
-
-var dataStore ={
-  vendorName : data.vendorName,
-  items:
+async function handleClick() {
+  var dataStore =
   {
-    subscription : showHide,
-    price: showPrice,
-    itemquantity : quantity,
+    userId: 1,
+    vendorName : data.vendorName,
+    items:
+    [
+    {
+      subscription : showHide,
+      price: showPrice,
+      quantity : quantity,
+      
+    }
+    ]
   }
-  }
-  function handleClick() {
-  
-    // Send data to the backend via POST
-    fetch(`http://localhost:8080/vendor/${params.id}`, {  // Enter your IP address here
 
-      method: 'POST', 
-      mode: 'cors', 
-      body: JSON.stringify(dataStore)
+  // Send data to the backend via POST
+  await fetch(`http://mealdeal.herokuapp.com/cart/add/1`, {  // Enter your IP address here
 
-    })
-  }
+    method: 'PUT',
+    headers:
+    {
+      'Content-Type':'application/json'
+    },
+    body: JSON.stringify(dataStore)
+
+  })
+}
 
     return (
 
       <div className="tiffin-vendor-detail mt-1">
-      <header class="section-header">
-      <section class="header-main border-bottom">
-      <div class="container">
-      <div class="row align-items-center">
-      <div class="col-sm col-sm col-sm">
+        
+      <header className="section-header">
+      <section className="header-main border-bottom">
+      <div className="container">
+      <div className="row align-items-center">
+      <div className="col-sm col-sm col-sm">
           <h1><center>Vendor Details</center></h1>  
         </div>
       </div>
       </div> 
+      
       </section> 
       </header> 
-  
-    <section class="section-content padding-y bg">
-    <div  className="container">
-    <div style={{ maxWidth: "1200px", margin: "0 auto" }} className="container"></div>
-        <article class="card">
-            <div class="card-body">
-                    <div class="row">
-                        <aside class="col-md-5">
-                                <article class="gallery-wrap">
-                                    <div class="card img-big-wrap">
-                                        <img src={data.image}/>
+      <div style={{ position: "fixed", width: "800px", height: "600px" }}>
+      <div style={style} />
+      {/* Your existing code goes here */}
+    </div>
+    <section className="section-content padding-y bg" >
+    <div  className="container" > 
+    
+    <div style={{ maxWidth: "1200px", margin: "0 auto"  }} className="container"></div>
+        <article className="card" >
+
+                    <div className="row justify-content-center">
+                        <aside className="col">
+                                <article  className="gallery-wrap" style={{ width: "80%", margin: "0 auto" }}>
+                                    <div className="card img-big-wrap" style={{ width: "500px", height: "300px" }}>
+                                        <img src={data.image}
+                                        style={{ width: '500px', height: '300px' }}/>
                                     </div> 
                                     
                                 </article>
                         </aside>
-                        <main class="col-md-7">
-                            <article>
-                                <h3 class="title"><center>{data.vendorName}</center></h3>
+                        <main className="col-md-7" >
+                            <article  >
+                              <center >
+                                <h3 className="title" ><center>{data.vendorName}</center></h3>
                                 <hr />
-                                <div class="mb-3">
+                                <div className="mb-3" >
                                     <h6></h6>
                                   <center> 
 
                                   </center>
                                 </div>
                                 
-                                <div class="form-group">
-                                    <label class="text-muted"><center><h5>Subscription</h5></center></label>                                    
+                                <div className="form-group" >
+                                    <label className="text-muted"><center><h5>Subscription</h5></center></label>                                    
                                     <div>
-
-                                <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="subscription" value={Day}  onClick = {handleshow}></input>
-                                  <label class="form-check-label" for="flexRadioDefault1">
-                                    {Day}
-                                  </label>
-                                </div>
-
-                                <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="subscription" value={Weekdays} checked={showHide==={Weekdays}} onClick = {handleshow}></input>
-                                  <label class="form-check-label" for="flexRadioDefault1">
-                                  {Weekdays}
-                                  </label>
-                                </div>
-
-                                <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="subscription" value={Week} checked={showHide==={Week}} onClick = {handleshow}></input>
-                                  <label class="form-check-label" for="flexRadioDefault1">
-                                    {Week}
-                                  </label>
-                                </div>
-                              
-                                <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="subscription" value={Fortnight} checked={showHide==={Fortnight}} onClick = {handleshow}></input>
-                                  <label class="form-check-label" for="flexRadioDefault1">
-                                    {Fortnight}
-                                  </label>
+                                    <div><center>
+                                    <div style={{ display: "flex", flexDirection: "column" }}>
+                                    <div style={{ display: "flex", alignItems: "center" }}>
+                                    {prices &&
+                                      Object.keys(prices).map((key) => (
+                                        <div key={key} id={key} >
+                                          <input type="radio" id={key} name="price" value={key}  onClick= {handleshow} checked={selectedOption === key} onChange={handleOptionChange}/>
+                                          <label htmlFor={key} style={{ marginLeft: "10px" }}> &nbsp;{key}</label>
+                                        </div>
+                                      ))}</div></div>
+                                      </center>
                                   </div>
-                                <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="subscription" value={Month} checked={showHide==={Month}} onClick = {handleshow}></input>
-                                  <label class="form-check-label" for="subscription">
-                                    {Month}
-                                  </label>
+                                </div>  <br></br>
+                                {showHide && (
+                                <div>
+                                  <label className="text-muted"><center><h5>Price </h5></center></label>
+                                  <var className="price h4 ">&nbsp;{prices[showHide]}$ /{showHide}</var>
                                 </div>
-                                </div>  <br></br> 
-                                    
+                              )}
                                     
                                     {
-                                      showHide===Day && 
+                                      showHide=== 'Day' && 
                                     (
-                                      <div class="d-flex justify-content-between">
-                                      <label class="text-muted"><center><h5>Quantity</h5></center></label>
-                                      <button onClick={handleDecrease} class="btn btn-secondary">
+                                      <div>
+                                      <label className="text-muted"><h5>Quantity</h5></label><br></br>
+                                      <button onClick={handleDecrease} className="btn btn-secondary">
                                       -
-                                      </button>
-                                      <p class="text-center mb-0">{quantity}</p>
-                                      <button onClick={handleIncrease} class="btn btn-secondary">
+                                      </button> &nbsp;
+                                      {quantity} &nbsp;
+                                      <button onClick={handleIncrease} className="btn btn-secondary">
                                       +
                                       </button>
                                     </div> 
@@ -224,179 +290,75 @@ var dataStore ={
                                     }
                                     
                                     {
-                                      showHide=== Weekdays && 
+                                      showHide=== 'Weekdays' && 
                                     (
                                       <div >
-                                      <label class="text-muted"><center><h5>Enter Date Range</h5></center></label> <br></br><br></br>
-                                      <DatePicker
-                                      isClearable
-                                      filterDate={d => {
-                                        return new Date() > d;
-                                      }}
-                                      placeholderText="Select Start Date"
-                                      dateFormat="MMMM d, yyyy"
-                                      selected={startDate}
-                                      selectsStart
-                                      startDate={startDate}
-                                      endDate={endDate}
-                                      onChange={date => setStartDate(date)}
-                                      />  
-                                      <DatePicker
-                                      isClearable
-                                      filterDate={d => {
-                                        return new Date() > d;
-                                      }} 
-                                      placeholderText="Select End Date"
-                                      dateFormat="MMMM d, yyyy"
-                                      selected={endDate}
-                                      selectsEnd
-                                      startDate={startDate}
-                                      endDate={endDate}
-                                      minDate={startDate}
-                                      onChange={date => setEndDate(date)}
-                                      />
+                                      <label className="text-muted"><center><h5>Enter Date Range</h5></center></label>  
+                                      {renderDatePickers()} 
                                       <br></br>
-                                      <label class="text-muted"><h5>Quantity</h5></label><br></br>
-                                      <button onClick={handleDecrease} class="btn btn-secondary">
+                                      <label className="text-muted"><h5>Quantity</h5></label><br></br>
+                                      <button onClick={handleDecrease} className="btn btn-secondary">
                                       -
-                                      </button>
-                                      {quantity}
-                                      <button onClick={handleIncrease} class="btn btn-secondary">
+                                      </button> &nbsp;
+                                      {quantity} &nbsp;
+                                      <button onClick={handleIncrease} className="btn btn-secondary">
                                       +
                                       </button>
                                      </div> 
                                     
-                                     
+                                    
                                     )
                                     }
                                     
                                     {
-                                      showHide=== Week && 
+                                      showHide=== 'Week' && 
                                     (
                                       <div>
-                                      <label class="text-muted"><center><h5>Enter Date Range</h5></center></label> <br></br><br></br>
-                                      <DatePicker
-                                      isClearable
-                                      filterDate={d => {
-                                        return new Date() > d;
-                                      }}
-                                      placeholderText="Select Start Date"
-                                      dateFormat="MMMM d, yyyy"
-                                      selected={startDate}
-                                      selectsStart
-                                      startDate={startDate}
-                                      endDate={endDate}
-                                      onChange={date => setStartDate(date)}
-                                      />  
-                                      <DatePicker
-                                      isClearable
-                                      filterDate={d => {
-                                        return new Date() > d;
-                                      }} 
-                                      placeholderText="Select End Date"
-                                      dateFormat="MMMM d, yyyy"
-                                      selected={endDate}
-                                      selectsEnd
-                                      startDate={startDate}
-                                      endDate={endDate}
-                                      minDate={startDate}
-                                      onChange={date => setEndDate(date)}
-                                      />
+                                      <label className="text-muted"><center><h5>Enter Date Range</h5></center></label>
+                                      {renderDatePickers()}
                                       <br></br>
-                                      <label class="text-muted"><h5>Quantity</h5></label><br></br>
-                                      <button onClick={handleDecrease} class="btn btn-secondary">
+                                      <label className="text-muted"><h5>Quantity</h5></label><br></br>
+                                      <button onClick={handleDecrease} className="btn btn-secondary">
                                       -
-                                      </button>
-                                      <p class="text-center mb-0">{quantity}</p>
-                                      <button onClick={handleIncrease} class="btn btn-secondary">
+                                      </button> &nbsp;
+                                      {quantity} &nbsp;
+                                      <button onClick={handleIncrease} className="btn btn-secondary">
                                       +
                                       </button>
                                      </div> 
                                     )
                                     }
                                     {
-                                      showHide=== Fortnight && 
+                                      showHide=== 'Fortnight' && 
                                     (
                                       <div>
-                                      <label class="text-muted"><center><h5>Enter Date Range</h5></center></label> <br></br><br></br>
-                                      <DatePicker
-                                      isClearable
-                                      filterDate={d => {
-                                        return new Date() > d;
-                                      }}
-                                      placeholderText="Select Start Date"
-                                      dateFormat="MMMM d, yyyy"
-                                      selected={startDate}
-                                      selectsStart
-                                      startDate={startDate}
-                                      endDate={endDate}
-                                      onChange={date => setStartDate(date)}
-                                      />  
-                                      <DatePicker
-                                      isClearable
-                                      filterDate={d => {
-                                        return new Date() > d;
-                                      }} 
-                                      placeholderText="Select End Date"
-                                      dateFormat="MMMM d, yyyy"
-                                      selected={endDate}
-                                      selectsEnd
-                                      startDate={startDate}
-                                      endDate={endDate}
-                                      minDate={startDate}
-                                      onChange={date => setEndDate(date)}
-                                      />
+                                      <label className="text-muted"><center><h5>Enter Date Range</h5></center></label>
+                                      {renderDatePickers()}
                                       <br></br>
-                                      <label class="text-muted"><h5>Quantity</h5></label><br></br>
-                                      <button onClick={handleDecrease} class="btn btn-secondary">
+                                      <label className="text-muted"><h5>Quantity</h5></label><br></br>
+                                      <button onClick={handleDecrease} className="btn btn-secondary">
                                       -
-                                      </button>
-                                      <p class="text-center mb-0">{quantity}</p>
-                                      <button onClick={handleIncrease} class="btn btn-secondary">
+                                      </button> &nbsp;
+                                      {quantity} &nbsp;
+                                      <button onClick={handleIncrease} className="btn btn-secondary">
                                       +
                                       </button>
                                      </div> 
                                     )
                                     }
                                     {
-                                      showHide=== Month && 
+                                      showHide=== 'Month' && 
                                     (
                                       <div>
-                                      <label class="text-muted"><center><h5>Enter Date Range</h5></center></label> <br></br><br></br>
-                                      <DatePicker
-                                      isClearable
-                                      filterDate={d => {
-                                        return new Date() > d;
-                                      }}
-                                      placeholderText="Select Start Date"
-                                      dateFormat="MMMM d, yyyy"
-                                      selected={startDate}
-                                      selectsStart
-                                      startDate={startDate}
-                                      endDate={endDate}
-                                      onChange={date => setStartDate(date)}
-                                      />  
-                                      <DatePicker
-                                      isClearable
-                                      filterDate={d => {
-                                        return new Date() > d;
-                                      }} 
-                                      placeholderText="Select End Date"
-                                      dateFormat="MMMM d, yyyy"
-                                      selected={endDate}
-                                      selectsEnd
-                                      startDate={startDate}
-                                      endDate={endDate}
-                                      minDate={startDate}
-                                      onChange={date => setEndDate(date)}
-                                      />
+                                      <label className="text-muted"><center><h5>Enter Date Range</h5></center></label>
+                                      {renderDatePickers()}
                                       <br></br>
-                                      <label class="text-muted"><h5>Quantity</h5></label><br></br>
-                                      <button onClick={handleDecrease} class="btn btn-secondary">
+                                      <label className="text-muted"><h5>Quantity</h5></label><br></br>
+                                      <button onClick={handleDecrease} className="btn btn-secondary">
                                       -
-                                      </button>
-                                      <p class="text-center mb-0">{quantity}</p>
-                                      <button onClick={handleIncrease} class="btn btn-secondary">
+                                      </button> &nbsp;
+                                      {quantity} &nbsp;
+                                      <button onClick={handleIncrease} className="btn btn-secondary">
                                       +
                                       </button>
                                      </div> 
@@ -404,98 +366,38 @@ var dataStore ={
                                     }
                                     
                                 </div><br></br>
-                                <label class="text-muted"><center><h5>Check Price ?</h5></center></label>
-                                {
-                                      showHide=== Day && 
-                                    (
-                                      <div id = "Day"> YES &nbsp;
-                                  <input type="radio" name="prices" defaultChecked value={priceday} checked={showPrice==={priceday}} onClick={ handlepriceshow}></input>
-                                  <label class="form-check-label" for="flexRadioDefault1"></label><br></br>
-                                      <var class="price h4 ">&nbsp;{priceday}$ /{Day}</var>
-                                      
-                                     </div> 
-                                     
-                                    )
-                                    
-                                }
-                                {
-                                      showHide=== Weekdays && 
-                                    (
-                                      <div id = "Weekdays">YES &nbsp;
-                                  <input type="radio" name="prices" value={priceWeekdays} checked={showPrice==={priceWeekdays}} onClick={ handlepriceshow}></input>
-                                  <label class="form-check-label" for="flexRadioDefault1"></label><br></br>
-                                      <var class="price h4 ">&nbsp;{priceWeekdays}$ /{Weekdays}</var>
-                                      
-                                     </div> 
-                                     
-                                    )
-                                    
-                                }
-                                
-                                {
-                                      showHide=== Week && 
-                                    (
-
-                                      <div id = "Week">YES &nbsp;
-                                      <input type="radio" name="prices" value={priceWeek} checked={showPrice==={priceWeek}} onClick={handlepriceshow}></input>
-                                      <label class="form-check-label" for="flexRadioDefault1"></label><br></br>
-                                      <var class="price h4 ">&nbsp;{priceWeek}$ /{Week  }</var>
-                                      
-                                     </div> 
-                                    )
-
-                                }
-                                {
-                                      showHide=== Fortnight && 
-                                    (
-                                      <div id = "Fortnight">YES &nbsp;
-                                      <input type="radio" name="prices" value={priceFortnight} checked={showPrice==={priceFortnight}} onClick={handlepriceshow}></input>
-                                      <label class="form-check-label" for="flexRadioDefault1"></label><br></br>
-                                      <var class="price h4 ">&nbsp;{priceFortnight}$ /{Fortnight}</var>
-                                      
-                                     </div> 
-                                    )
-                                }
-                                {
-                                      showHide=== Month && 
-                                    (
-                                      <div id = "Month">YES &nbsp;
-                                      <input type="radio" name="prices" value={priceMonth} checked={showPrice==={priceMonth}} onClick={handlepriceshow}></input>
-                                      <label class="form-check-label" for="flexRadioDefault1"></label><br></br>
-                                      <var class="price h4 ">&nbsp;{priceMonth}$ /{Month}</var>
-                                      
-                                     </div> 
-                                    )
-                                }
                                 
                                 
-                                <div class="mb-4">
+                                <div className="mb-4">
+                                {/* <pre>{JSON.stringify(dataStore, null, 2) }</pre> */}
                                   <br></br>
-                                    <a class="btn btn-primary mr-1" onClick={handleClick()}>Add to cart</a>
+                                    <a className="btn btn-primary mr-1" onClick={handleClick}>Add to cart</a>
                                 </div>
-                                
+                                </center>
                             </article> 
                         </main>
-                    </div> 
-            </div> 
+                    </div>  
         </article>
-        <article class="card mt-5">
+        <article className="card mt-5">
             
                 
                 <p>
                 <center>
-                  <h5><br></br>
-                    Menu Details</h5>
+                  <h4><br></br>
+                    Menu</h4>
                     </center>
-                    
-                    <li>Monday: {menu.Monday}<br></br></li>
-                    <li>Tuesday: {menu.Tuesday}<br></br></li>
-                    <li>Wednesday: {menu.Wednesday}<br></br></li>
-                    <li>Thursday: {menu.Thursday}<br></br></li>
-                    <li>Friday: {menu.Friday}<br></br></li>
-                    <li>Saturday: {menu.Saturday}<br></br></li>
-                    <li>Sunday: {menu.Sunday}<br></br></li>
-                    
+                    <div>
+      {/* <h2>Menu</h2> */}
+      
+      <ul>
+        {menu &&
+          Object.keys(menu).map((key) => (
+            <li key={key}>
+              {key}: {menu[key]}
+            </li>
+          ))}
+      </ul>
+    </div>
                 </p>
         </article>
         </div>   

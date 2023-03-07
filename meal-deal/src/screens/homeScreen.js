@@ -1,24 +1,41 @@
-import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 
+import { toast } from "react-toastify";
 import { clearToken } from "../services/clearJwt";
 import { getName } from "../services/customerService";
 import { getTiffinVendors } from "../services/vendorService";
-import TiffinVendorCard from "./tiffinVendorCard";
+import TiffinVendorCard from "../screens/tiffinVendorCard";
+import React, { useEffect, useState } from "react";
 
 import "../styles/homeScreen.css";
-import { isArray } from "lodash";
+
 
 function CustomerHome(props) {
   const [name, setName] = useState("Guest");
-  const [query, setQuery] = useState(
-    sessionStorage.getItem("tiffin_wale_search") || ""
-  );
-  const [searched, setSearched] = useState(false);
-  const [tiffinVendors, setTiffinVendors] = useState([]);
+  
   const [vegFilter, setVegFilter] = useState(false);
   const [sortBy, setSortBy] = useState("default"); // default, price, rating
   const { isLoggedIn, isCustomer, token, updateToken } = props.auth;
+  const [tiffinVendors, setTiffinVendors] = useState([]);
+  
+  const [filteredTiffinVendors, setFilteredTiffinVendors] = useState([]);
+  const [searched, setSearched] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  //Fetching the data from API
+  useEffect(() => {
+    const fetchPromise = fetch("http://mealdeal.herokuapp.com/vendor", {    
+      method: 'GET',    
+      headers: { 'Content-Type' : 'application/json'},      
+    })
+    .then((response) => response.json())
+      .then((res) => {
+        setTiffinVendors(res);
+        setFilteredTiffinVendors(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+}, []);
 
   useEffect(() => {
     if (!isLoggedIn) return;
@@ -31,97 +48,110 @@ function CustomerHome(props) {
     else toast.error("invalid customer");
   }, [isLoggedIn, isCustomer, updateToken, token]);
 
-  const handleSearch = async () => {
-    if (query.length > 50) return;
-    const res = await getTiffinVendors(query);
-    if (res === null) return;
-    if (isArray(res)) {
-      sessionStorage.setItem("tiffin_wale_search", query);
-      setTiffinVendors(res);
-      setSearched(true);
-    } else toast.error("invalid city or pincode");
+  // useEffect(() => {
+  //   const res = getTiffinVendors();
+  //   if (res === null){
+  //     console.log("null");
+  //     return;
+  //   }   
+  //   else {
+  //     setTiffinVendors(res);
+  //   }
+  // }, [])
+
+  const handleSearch = async (e) => {
+      console.log(searchQuery);
   };
 
-  useEffect(() => {
-    if (sessionStorage.getItem("tiffin_wale_search")) handleSearch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+      
+      return (          
+        <React.Fragment>
+          <div className="container">
+            <div id="background" className={!searched ? "bg-height" : ""}>
+              <h4 className="greeting"> {`Hi ${name}`}</h4>
+              <div className="input-group mb-3 ">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Search by city or pincode"
+                  value={searchQuery}
+                  onChange={(input) => setSearchQuery(input.target.value)}
+                />
+                <button
+                  className="btn btn-primary px-4"
+                  type="button"
+                  onClick={handleSearch}
+                >
+                  Search
+                </button>
+              </div>
+            </div>
 
-  const vendorsArray = JSON.parse(JSON.stringify(tiffinVendors));
-  return (
-    <React.Fragment>
-      <div id="background" className={!searched ? "bg-height" : ""}>
-        <h4 className="greeting"> {`Hi ${name}`}</h4>
-        <div className="input-group mb-3 ">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Search by city or pincode"
-            value={query}
-            onChange={({ currentTarget: input }) => setQuery(input.value)}
-          />
-          <button
-            className="btn btn-primary px-4"
-            type="button"
-            onClick={handleSearch}
-          >
-            <i className="fa fa-search" aria-hidden="true"></i>
-          </button>
-        </div>
-      </div>
-
-      {vendorsArray.length !== 0 && (
-        <div className="container-fluid">
-          <div className="my-3">
-            Sort By:
-            <select
-              className="ms-2 me-5"
-              onChange={({ target }) => setSortBy(target.value)}
-              value={sortBy}
-            >
-              <option value="default">default</option>
-              <option value="price">price</option>
-              <option value="rating">average rating</option>
-            </select>
-            Veg Only?{" "}
-            <label className="switch">
-              <input
-                type="checkbox"
-                name="veg filter"
-                value={vegFilter}
-                checked={vegFilter}
-                onChange={({ target }) =>
-                  setVegFilter(target.value === "false" ? true : false)
-                }
-              />
-            </label>
+            {tiffinVendors.length !== 0 && (
+            <div>
+              <div className="container"> 
+                <div className="row">
+                  <div className="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                      <select
+                        className="form-select"
+                        onChange={({ target }) => setSortBy(target.value)}
+                        value={sortBy}
+                      >
+                        <option value="default">default</option>
+                        <option value="price">price</option>
+                        <option value="rating">veg</option>
+                      </select>
+                  </div>
+                  <div className="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                             
+                      <label className="switch">                        
+                        <input
+                        className=""
+                        type="checkbox"
+                        name="veg filter"
+                        value={vegFilter}
+                        checked={vegFilter}
+                        onChange={() => setVegFilter(!vegFilter)
+                        }
+                      /> 
+                      </label>
+                      <span className="p-3">Veg Only?{" "}</span>
+                  </div>
+                </div>         
+                <div className="row mt-3">
+                  {tiffinVendors && tiffinVendors.length > 0 && tiffinVendors.filter(
+                    (value) => {
+                      if (searchQuery === '' && !vegFilter) {
+                        return true; // include all vendors if no search query or filter is selected
+                      } else if (searchQuery !== '' && !vegFilter) {
+                        return value.address.toLowerCase().includes(searchQuery.toLowerCase()); // include vendors that match the search query
+                      } else if (searchQuery === '' && vegFilter) {
+                        return value.isVeg; // include vendors that are vegetarian
+                      } else {
+                        return value.address.toLowerCase().includes(searchQuery.toLowerCase()) && value.isVeg; // include vendors that match the search query and are vegetarian
+                      }
+                  }).map((value) => ( 
+                    <div className="col-lg-3 col-md-3 col-sm-12" key={value.id}>
+                      <div className="tiffin-vendor-card card shadow-sm">                  
+                        <div className="card-body">
+                          <img className="card-image" src={value.image} alt="Tiffin image"/>  
+                          <div className="card-content">                  
+                            <h6 className="business-name">{value.vendorName}</h6>
+                            <p className="mb-1">
+                              {value.address}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>            
+          )}
           </div>
-          <div className="row">
-            {vendorsArray
-              .sort((a, b) => {
-                if (sortBy === "price") {
-                  return a.monthRate.oldRate - b.monthRate.oldRate;
-                } else if (sortBy === "rating") {
-                  return b.rating.currentRating - a.rating.currentRating;
-                }
-                return 0;
-              })
-              .filter((vendor) => {
-                if (vegFilter === false) return true;
-                if (vendor.hasVeg === true) return true;
-                return false;
-              })
-              .map((vendor) => {
-                return <TiffinVendorCard key={vendor._id} vendor={vendor} />;
-              })}
-          </div>
-        </div>
-      )}
-      {searched && tiffinVendors.length === 0 && (
-        <h1>No tiffin vendors found!</h1>
-      )}
-    </React.Fragment>
-  );
-}
+        </React.Fragment>
+    );
+  }
 
 export default CustomerHome;
