@@ -168,7 +168,10 @@ function App() {
             </ProtectedRoute>
           }
         />
-
+<Route
+          path={"/vendordashboard"}
+          element={<TiffinVendorHome auth={state} />}
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </React.Fragment>
