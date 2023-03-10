@@ -25,7 +25,7 @@ function LoginPage() {
     const formData = { email, password };
 
     try {
-      await fetch("http://localhost:8080/login", {
+      await fetch("http://mealdeal.herokuapp.com/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -42,8 +42,8 @@ function LoginPage() {
         .then((res) => {
           console.log(res);
           localStorage.setItem("userId", res);
-          localStorage.setItem("type", "vendor");
-          window.location.href = "/";
+          localStorage.setItem("isCustomer", false);
+          window.location.href = "/vendorHome";
         });
     } catch (error) {
       setErrorMessage("Something went wrong, please try again later.");

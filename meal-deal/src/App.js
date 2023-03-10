@@ -31,21 +31,18 @@ function App() {
 
   const getUser = () => {
     let currState= {...state};
-    currState.userId= localStorage.getItem("userId") || state.userId;
-    currState.isLoggedIn= true;
-    currState.isCustomer= localStorage.getItem("isCustomer") || state.isCustomer;
-    setState(currState);
-    return state
+    let id= localStorage.getItem("userId")
+    currState.userId= id || state.userId;
+    currState.isLoggedIn= id>0;
+    let iscustomer= localStorage.getItem("isCustomer")
+    currState.isCustomer= iscustomer==='true'
+    return currState
   };
 
-  const setUser= (state) => {
-    setState(state);
-    localStorage.removeItem("userId");
-    localStorage.removeItem("customer");
-  }
+  
   return (
     <React.Fragment>
-      <NavBar user={getUser} setUser={setUser}/>
+      <NavBar user={getUser} />
       <ToastContainer />
       <Routes>
         <Route path="/" element={<Navigate to="/customer" replace />} />
@@ -61,7 +58,7 @@ function App() {
           path="/customer/register"
           element={<CustomerRegister/>}
         />
-        <Route path="/cart" element={<Cart />} />
+        <Route path="/cart" element={<Cart user={getUser}/>} />
         <Route
           path="/resetPassword"
           element={<ResetPassword/>}
@@ -157,7 +154,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
         <Route
           path="/customerprofile"
-          element={<CustomerProfile/>}
+          element={<CustomerProfile user={getUser}/>}
         />
         <Route
           path="/editprofile"
