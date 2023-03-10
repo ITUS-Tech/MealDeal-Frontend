@@ -11,6 +11,8 @@ import TiffinVendorHome from "./screens/tiffinVendorHome";
 import TiffinVendorLogin from "./screens/tiffinVendorLogin";
 import TiffinVendorEditDetails from "./screens/tiffinVendorEditDetails";
 import TiffinVendorDetails from "./screens/tiffinVendorDetails";
+import CustomerProfile from "./screens/customerProfile";
+import EditCustomerProfile from "./screens/editCustomerProfile"
 import NavBar from "./screens/navBar";
 import TiffinVendorRegister from "./screens/tiffinVendorRegister";
 import NotFound from "./screens/notFound";
@@ -153,6 +155,14 @@ function App() {
           element={<TiffinVendorHome auth={state} />}
         />
         <Route path="*" element={<NotFound />} />
+        <Route
+          path="/customerprofile"
+          element={<CustomerProfile/>}
+        />
+        <Route
+          path="/editprofile"
+          element={<EditCustomerProfile/>}
+        />
       </Routes>
     </React.Fragment>
   );
