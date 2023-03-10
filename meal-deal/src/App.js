@@ -21,6 +21,7 @@ import CustomerSubscriptions from "./screens/customerSubscriptions";
 import TiffinVendorSubscriptions from "./screens/tiffinVendorSubscriptions";
 import Cart from "./screens/Cart";
 import ViewOrderHistory from "./screens/viewOrderHistory";
+import ResetPassword from "./screens/resetPasswrod";
 
 function App() {
   const defaultState = {
@@ -85,6 +86,10 @@ function App() {
           element={<CustomerRegister updateToken={handleToken} />}
         />
         <Route path="/cart" element={<Cart />} />
+        <Route
+          path="/resetPassword"
+          element={<ResetPassword/>}
+        />
         <Route
           path="/customer/edit"
           element={
@@ -167,7 +172,12 @@ function App() {
             </ProtectedRoute>
           }
         />
+
         <Route path="/order-history" element={<ViewOrderHistory />} />
+<Route
+          path={"/vendorHome"}
+          element={<TiffinVendorHome auth={state} />}
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </React.Fragment>

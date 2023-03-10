@@ -51,43 +51,36 @@ function LoginPage() {
   };
 
   return (
-    <div className="bgImage">
-      <div className="container">
-        <div className="row">
-          <div className="col-md-9 col-lg-9 col-sm-9">
-            <p>Hello there</p>
-          </div>
-          <div className="col-lg-3 col-md-3 col-sm-3 card p-4">
-            <form onSubmit={handleLogin}>
-              <h5 className="card-title m-3 text-center">Vendor Login</h5>
-              <FormInput
-                value={email}
-                type="text"
-                name="Email"
-                onChange={(event) => setEmail(event.target.value)}
-              />
-              <FormInput
-                value={password}
-                type="password"
-                name="Password"
-                onChange={(event) => setPassword(event.target.value)}
-              />
-              <button className="btn btn-primary mx-auto" type="submit">
-                Login
-              </button>
-              {errorMessage && (
-                <div className="error-message">{errorMessage}</div>
-              )}
-            </form>
-            <p className="mt-3">
-              <center>Don't have an account?</center>
-            </p>
-            <h6 className="message mt-3">
-              <center>
-                Not a Tiffin Vendor?{" "}
-                <Link className="pointer" to="/customer/login">
-                  Customer
-                </Link>
+    <div className='login-card'>
+      <form onSubmit={handleLogin}>
+      <h5 className="card-title m-3 text-center">Vendor Login</h5>
+      <FormInput
+              value={email}
+              type="text"
+              name="Email"
+              onChange={event => setEmail(event.target.value)}
+            />
+        <FormInput
+              value={password}
+              type="password"
+              name="Password"
+              onChange={event => setPassword(event.target.value)}
+            />
+        <button className="btn btn-primary mx-auto" type="submit">Login</button>
+        {errorMessage && <div className="error-message">{errorMessage}</div>}
+      </form>
+      <p className='mt-3'><center>Don't have an account?</center></p>
+      <h6 className="message mt-3">
+          <center>
+          <Link to="/resetPassword">Forgot Password?</Link>
+          </center>
+        </h6>
+      <h6 className="message mt-3">
+        <center>
+              Not a Tiffin Vendor?{" "}
+              <Link className="pointer" to="/customer/login">
+                Customer
+              </Link>
               </center>
             </h6>
             <h6 className="message mt-1">
