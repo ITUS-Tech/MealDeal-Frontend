@@ -13,6 +13,7 @@ import TiffinVendorEditDetails from "./screens/tiffinVendorEditDetails";
 import TiffinVendorDetails from "./screens/tiffinVendorDetails";
 import CustomerProfile from "./screens/customerProfile";
 import NavBar from "./screens/navBar";
+import TiffinVendorRegister from "./screens/tiffinVendorRegister";
 import NotFound from "./screens/notFound";
 
 import config from "./config.json";
@@ -20,6 +21,8 @@ import "./App.css";
 import CustomerSubscriptions from "./screens/customerSubscriptions";
 import TiffinVendorSubscriptions from "./screens/tiffinVendorSubscriptions";
 import Cart from "./screens/Cart";
+import ViewOrderHistory from "./screens/viewOrderHistory";
+import ResetPassword from "./screens/resetPasswrod";
 
 function App() {
   const defaultState = {
@@ -83,9 +86,10 @@ function App() {
           path="/customer/register"
           element={<CustomerRegister updateToken={handleToken} />}
         />
+        <Route path="/cart" element={<Cart />} />
         <Route
-          path="/cart"
-          element={<Cart/>}
+          path="/resetPassword"
+          element={<ResetPassword/>}
         />
         <Route
           path="/customer/edit"
@@ -120,7 +124,7 @@ function App() {
         }
         /> */}
 
-<Route
+        <Route
           path={"/vendor/:id"}
           element={<TiffinVendorDetails auth={state} />}
         />
@@ -136,7 +140,7 @@ function App() {
               <TiffinVendorHome auth={state} />
             </ProtectedRoute>
           }
-          />
+        />
         <Route
           path="/tiffin-vendor/login"
           element={<TiffinVendorLogin updateToken={handleToken} />}
@@ -170,6 +174,11 @@ function App() {
           }
         />
 
+        <Route path="/order-history" element={<ViewOrderHistory />} />
+<Route
+          path={"/vendorHome"}
+          element={<TiffinVendorHome auth={state} />}
+        />
         <Route path="*" element={<NotFound />} />
         <Route
           path="/customerprofile"

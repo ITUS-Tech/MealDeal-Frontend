@@ -1,6 +1,7 @@
 body {
     font-family: Arial, sans-serif;
     margin: 0;
+    background-color: #fafafa !important;
   }
   
   header {
@@ -111,3 +112,14 @@ body {
     box-shadow: none !important;
     border: 1.5px solid #606060 !important;
   }
+
+  .bgImage{
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)),
+    url("../images/login-bg.jpg");
+    background-size: cover;
+  }
+
+  
+
+ 
