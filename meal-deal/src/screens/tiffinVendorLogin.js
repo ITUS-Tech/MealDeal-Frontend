@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import "../styles/login.css"
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "../styles/login.css";
 import FormInput from "../common/formInput";
 
-
 function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    
+
     const validateEmail = (email) => {
       // Regex to validate email format
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -19,35 +18,37 @@ function LoginPage() {
     };
 
     if (!validateEmail(email)) {
-      setErrorMessage('Please enter a valid email address.');
+      setErrorMessage("Please enter a valid email address.");
       return;
     }
 
-    const formData = {email, password};
+    const formData = { email, password };
 
     try {
-       await fetch('http://localhost:8080/login', {
-         method: 'POST',
-         headers: {
-           'Content-Type': 'application/json'
-         },
-         body: JSON.stringify(formData)
-       }).then((response) => {
-        if (response.ok) {
-         return response.json();
-        } else {
-          setErrorMessage('Wrong with response!');
-        }
-       }).then((res) => {
-        console.log(res);
-        localStorage.setItem("userId", res);
-        localStorage.setItem("type", "vendor");
-        window.location.href = '/';
-       });
-     } catch (error) {
-       setErrorMessage('Something went wrong, please try again later.');
-     }
-  }
+      await fetch("http://localhost:8080/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            setErrorMessage("Wrong with response!");
+          }
+        })
+        .then((res) => {
+          console.log(res);
+          localStorage.setItem("userId", res);
+          localStorage.setItem("type", "vendor");
+          window.location.href = "/";
+        });
+    } catch (error) {
+      setErrorMessage("Something went wrong, please try again later.");
+    }
+  };
 
   return (
     <div className='login-card'>
@@ -84,12 +85,15 @@ function LoginPage() {
             </h6>
             <h6 className="message mt-1">
               <center>
-              Not Registered?{" "}
-              <Link className="pointer" to="/tiffin-vendor/register">
-                Register
-              </Link>
+                Not Registered?{" "}
+                <Link className="pointer" to="/tiffin-vendor/register">
+                  Register
+                </Link>
               </center>
             </h6>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

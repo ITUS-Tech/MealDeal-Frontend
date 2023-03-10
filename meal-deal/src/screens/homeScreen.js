@@ -2,19 +2,17 @@ import { toast } from "react-toastify";
 import { clearToken } from "../services/clearJwt";
 import { getName } from "../services/customerService";
 import { useNavigate } from "react-router-dom";
-import TiffinVendorCard from "../screens/tiffinVendorCard";
 import React, { useEffect, useState } from "react";
+import TiffinVendorCard from "../screens/tiffinVendorCard";
 
 import "../styles/homeScreen.css";
 
 function CustomerHome(props) {
   const [name, setName] = useState("Guest");
-
   const [vegFilter, setVegFilter] = useState(false);
   const [sortBy, setSortBy] = useState("default"); // default, price, rating
   const { isLoggedIn, isCustomer, token, updateToken } = props.auth;
   const [tiffinVendors, setTiffinVendors] = useState([]);
-
   const [filteredTiffinVendors, setFilteredTiffinVendors] = useState([]);
   const [searched, setSearched] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
