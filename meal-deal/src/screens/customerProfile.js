@@ -7,7 +7,8 @@ import { useNavigate } from "react-router-dom";
 function CustomerProfile(props) {
   
   const [user, setUser] = useState({});
-  fetch("http://mealdeal.herokuapp.com/user/1")
+  const { userId, isLoggedIn, isCustomer } = props.user();
+  fetch(`http://mealdeal.herokuapp.com/user/${userId}`)
   .then((response) => response.json())
   .then((data) => setUser(data));
 

@@ -7,12 +7,13 @@ import "../styles/auth.css";
 import axios from "axios";
 
 function Cart(props) {
+  const { userId, isLoggedIn, isCustomer } = props.user();
   const [cart, setCart] = useState({});
   const [items, setItems] = useState([]);
 
 
   useEffect(() => {
-      axios.get(`https://mealdeal.herokuapp.com/cart/1`)
+      axios.get(`https://mealdeal.herokuapp.com/cart/${userId}`)
       .then((respnse) => {
         setCart(respnse.data);
         setItems(respnse.data.items);

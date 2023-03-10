@@ -58,7 +58,7 @@ function App() {
           path="/customer/register"
           element={<CustomerRegister/>}
         />
-        <Route path="/cart" element={<Cart />} />
+        <Route path="/cart" element={<Cart user={getUser}/>} />
         <Route
           path="/resetPassword"
           element={<ResetPassword/>}
@@ -154,7 +154,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
         <Route
           path="/customerprofile"
-          element={<CustomerProfile/>}
+          element={<CustomerProfile user={getUser}/>}
         />
         <Route
           path="/editprofile"

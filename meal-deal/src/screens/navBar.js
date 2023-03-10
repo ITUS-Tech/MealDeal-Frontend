@@ -62,7 +62,7 @@ function NavBar(props) {
               </button>
               <button
                 className="nav-link btn"
-                onClick={() => navigate("/customer/edit")}
+                onClick={() => navigate("/customerprofile")}
               >
                 Profile
               </button>
