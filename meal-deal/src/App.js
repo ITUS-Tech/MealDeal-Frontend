@@ -173,7 +173,10 @@ function App() {
             </ProtectedRoute>
           }
         />
-
+<Route
+          path={"/vendorHome"}
+          element={<TiffinVendorHome auth={state} />}
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </React.Fragment>
