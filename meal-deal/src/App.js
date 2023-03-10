@@ -11,6 +11,7 @@ import TiffinVendorHome from "./screens/tiffinVendorHome";
 import TiffinVendorLogin from "./screens/tiffinVendorLogin";
 import TiffinVendorEditDetails from "./screens/tiffinVendorEditDetails";
 import TiffinVendorDetails from "./screens/tiffinVendorDetails";
+import CustomerProfile from "./screens/customerProfile";
 import NavBar from "./screens/navBar";
 import NotFound from "./screens/notFound";
 
@@ -170,6 +171,10 @@ function App() {
         />
 
         <Route path="*" element={<NotFound />} />
+        <Route
+          path="/customerprofile"
+          element={<CustomerProfile/>}
+        />
       </Routes>
     </React.Fragment>
   );
