@@ -3,12 +3,12 @@ import "../styles/tiffinVendorHome.css";
 import { CardTitle, CardSubtitle } from "reactstrap";
 
 function TiffinVendorHome(props) {
-  
+  const { userId, isLoggedIn, isCustomer } = props.user();
  const [data, setData] = useState([])
  const [name, setName] = useState("")
 
   useEffect(() => {
-    const url = "https://mealdeal.herokuapp.com/order/26";
+    const url = `https://mealdeal.herokuapp.com/order/${userId}`;
     const fetchData = async () => {
       try {
         await fetch(url)
@@ -61,7 +61,7 @@ function TiffinVendorHome(props) {
             <div className="row">
               {order.plans.map((plan) => (
               <div className="col-sm-6">
-                <CardTitle tag="h5">Subscription Type: {plan.type}</CardTitle>
+                <CardTitle tag="h5">Subscription Type: {plan.subscription}</CardTitle>
                 <CardSubtitle tag="h6" className="mb-2 text-muted">
                   Start Date: {plan.start}
                 </CardSubtitle>

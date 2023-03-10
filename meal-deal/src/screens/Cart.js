@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 // import { getCart } from "../services/cartService";
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
+import { useNavigate } from "react-router-dom";
 
 import "../styles/auth.css";
 import axios from "axios";
 
 function Cart(props) {
+  const navigate = useNavigate();
   const { userId, isLoggedIn, isCustomer } = props.user();
   const [cart, setCart] = useState({});
   const [items, setItems] = useState([]);
@@ -39,7 +41,7 @@ function Cart(props) {
     let newCartItems={...cart, items: items};
     let newCart={...newCartItems, totalPrice: total};
     setCart(newCart);
-    await fetch(`http://mealdeal.herokuapp.com/cart/add/${cart.userId}`,{
+    await fetch(`http://mealdeal.herokuapp.com/cart/add/${userId}`,{
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -48,13 +50,33 @@ function Cart(props) {
     });
   }
 
+  const handlePayment= async () => {
+    let order={
+      userId: userId,
+      vendorId: cart.vendorId,
+      VendorName: cart.vendorName,
+      plans: items  ,
+      totalAmount: cart.totalPrice
+    }
+    await fetch(`http://mealdeal.herokuapp.com/order/add`,{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(order)
+    }).then((resonse)=>{
+      navigate(`/payment/${resonse.json()}`);
+    });
+    
+  }
+
   return (
     <div className="container">
       {items.length>0?(
       <><h2>Ordering from {cart.vendorName}</h2><br /><Table striped>
           <thead>
             <tr>
-              <th>Item</th>
+              <th>Plan</th>
               <th>Price</th>
               <th>Quantity</th>
             </tr>
@@ -72,7 +94,8 @@ function Cart(props) {
             ))}
           </tbody>
         </Table>
-        <h3>Total: ${cart.totalPrice}</h3></>
+        <h3>Total: ${cart.totalPrice}</h3>
+        <Button variant="info" size="sm" onClick={handlePayment}>Make Payment</Button></>
       ):(
         <h2>Cart Empty...</h2>
       )}

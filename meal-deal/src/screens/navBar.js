@@ -12,7 +12,10 @@ function NavBar(props) {
   const logOut = () => {
     localStorage.removeItem("userId");
     localStorage.removeItem("isCustomer");
-    navigate("")
+    if(isCustomer)
+      navigate("/customer/login")
+    else
+      navigate("/tiffin-vendor/login")
   };
 
   return (
