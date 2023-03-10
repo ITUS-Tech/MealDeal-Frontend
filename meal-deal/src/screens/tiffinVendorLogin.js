@@ -70,6 +70,11 @@ function LoginPage() {
       </form>
       <p className='mt-3'><center>Don't have an account?</center></p>
       <h6 className="message mt-3">
+          <center>
+          <Link to="/resetPassword">Forgot Password?</Link>
+          </center>
+        </h6>
+      <h6 className="message mt-3">
         <center>
               Not a Tiffin Vendor?{" "}
               <Link className="pointer" to="/customer/login">
