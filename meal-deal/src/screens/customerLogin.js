@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/login.css";
 import FormInput from "../common/formInput";
-import LoginImg from "../images/login-bg.jpg";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -84,6 +83,11 @@ function LoginPage() {
                 <div className="error-message">{errorMessage}</div>
               )}
             </form>
+            <h6 className="message mt-3">
+              <center>
+                <Link to="/resetPassword">Forgot Password?</Link>
+              </center>
+            </h6>
             <h6 className="message mt-3">
               <center>
                 Not a Customer?{" "}

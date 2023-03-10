@@ -5,13 +5,16 @@ import config from "../config.json";
 import "../styles/navBar.css";
 
 function NavBar(props) {
-  const { isLoggedIn, isCustomer } = props.auth;
+  const { userId, isLoggedIn, isCustomer } = props.user;
   let navigate = useNavigate();
 
   const logOut = () => {
-    localStorage.removeItem(config.localStorageKey);
-    props.updateToken(null, true);
-    isCustomer ? navigate("/customer/login") : navigate("/tiffin-vendor/login");
+    props.setUser({
+      userId:-1,
+      isLoggedIn:false,
+      isCustomer:false
+    })
+    navigate("")
   };
 
   return (
