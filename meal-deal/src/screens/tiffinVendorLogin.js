@@ -91,10 +91,7 @@ function LoginPage() {
                 </Link>
               </center>
             </h6>
-          </div>
-        </div>
       </div>
-    </div>
   );
 }
 
