@@ -19,6 +19,7 @@ import "./App.css";
 import CustomerSubscriptions from "./screens/customerSubscriptions";
 import TiffinVendorSubscriptions from "./screens/tiffinVendorSubscriptions";
 import Cart from "./screens/Cart";
+import ResetPassword from "./screens/resetPasswrod";
 
 function App() {
   const defaultState = {
@@ -85,6 +86,10 @@ function App() {
         <Route
           path="/cart"
           element={<Cart/>}
+        />
+        <Route
+          path="/resetPassword"
+          element={<ResetPassword/>}
         />
         <Route
           path="/customer/edit"

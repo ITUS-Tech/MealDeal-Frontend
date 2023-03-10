@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+// import { useNavigate } from "react-router-dom";
 import "../styles/login.css"
 import FormInput from "../common/formInput";
 
@@ -73,7 +74,14 @@ function LoginPage() {
         <button className="btn btn-primary mx-auto" type="submit">Login</button>
         {errorMessage && <div className="error-message">{errorMessage}</div>}
         
+        
       </form>
+      <h6 className="message mt-3">
+          <center>
+          <Link to="/resetPassword">Forgot Password?</Link>
+          </center>
+        </h6>
+
         <h6 className="message mt-3">
           <center>
             Not a Customer?{" "}
@@ -85,7 +93,7 @@ function LoginPage() {
         <h6 className="message mt-1">
           <center>
           Not Registered?{" "}
-          <Link className="pointer" to="/customer/register">
+          <Link className="pointer" to="/customer/register" >
             Register
           </Link>
           </center>
