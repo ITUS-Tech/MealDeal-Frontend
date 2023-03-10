@@ -21,66 +21,40 @@ import TiffinVendorSubscriptions from "./screens/tiffinVendorSubscriptions";
 import Cart from "./screens/Cart";
 
 function App() {
-  const defaultState = {
-    isLoggedIn: false,
-    isCustomer: true,
-    token: null,
-  };
 
-  const getInitialState = () => {
-    let localStorageState = localStorage.getItem(config.localStorageKey);
-    if (localStorageState) localStorageState = JSON.parse(localStorageState);
-    const initialState = localStorageState || defaultState;
-    return initialState;
-  };
+  const [state, setState] = useState({userId:-1, isLoggedIn: false, isCustomer: true});
 
-  const [state, setState] = useState({ ...getInitialState() });
-
-  const handleToken = (token, isCustomer) => {
-    if (token === null) {
-      setState({ ...getInitialState() });
-      return;
-    }
-    const currState = { ...state };
-    currState.isLoggedIn = true;
-    currState.isCustomer = isCustomer;
-    currState.token = token;
-    localStorage.setItem(config.localStorageKey, JSON.stringify(currState));
+  const getUser = () => {
+    let currState= {...state};
+    currState.userId= localStorage.getItem("userId") || state.userId;
+    currState.isLoggedIn= true;
+    currState.isCustomer= localStorage.getItem("isCustomer") || state.isCustomer;
     setState(currState);
+    return state
   };
+
+  const setUser= (state) => {
+    setState(state);
+    localStorage.removeItem("userId");
+    localStorage.removeItem("customer");
+  }
   return (
-    // <div className="App">
-    //   <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo" />
-    //     <p>
-    //       Edit <code>src/App.js</code> and save to reload.
-    //     </p>
-    //     <a
-    //       className="App-link"
-    //       href="https://reactjs.org"
-    //       target="_blank"
-    //       rel="noopener noreferrer"
-    //     >
-    //       Learn React
-    //     </a>
-    //   </header>
-    // </div>
     <React.Fragment>
-      <NavBar auth={state} updateToken={handleToken} />
+      <NavBar user={getUser} setUser={setUser}/>
       <ToastContainer />
       <Routes>
         <Route path="/" element={<Navigate to="/customer" replace />} />
         <Route
           path="/customer"
-          element={<CustomerHome auth={state} updateToken={handleToken} />}
+          element={<CustomerHome/>}
         />
         <Route
           path="/customer/login"
-          element={<CustomerLogin updateToken={handleToken} />}
+          element={<CustomerLogin/>}
         />
         <Route
           path="/customer/register"
-          element={<CustomerRegister updateToken={handleToken} />}
+          element={<CustomerRegister/>}
         />
         <Route
           path="/cart"
@@ -94,7 +68,7 @@ function App() {
               toNavigate="/customer/login"
               type="customer"
             >
-              <CustomerEditDetails auth={state} updateToken={handleToken} />
+              <CustomerEditDetails auth={state}/>
             </ProtectedRoute>
           }
         />
@@ -138,7 +112,7 @@ function App() {
           />
         <Route
           path="/tiffin-vendor/login"
-          element={<TiffinVendorLogin updateToken={handleToken} />}
+          element={<TiffinVendorLogin />}
         />
         {/* <Route
           path="/tiffin-vendor/register"
@@ -152,7 +126,7 @@ function App() {
               toNavigate="/tiffin-vendor/login"
               type="tiffin-vendor"
             >
-              <TiffinVendorEditDetails auth={state} updateToken={handleToken} />
+              <TiffinVendorEditDetails/>
             </ProtectedRoute>
           }
         />
