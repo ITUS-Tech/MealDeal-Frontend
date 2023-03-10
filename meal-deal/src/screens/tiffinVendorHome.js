@@ -4,20 +4,22 @@ import { CardTitle, CardSubtitle } from "reactstrap";
 
 function TiffinVendorHome(props) {
   
- const [data, setData] = useState({})
- const [plans, setPlans] = useState({})
+ const [data, setData] = useState([])
+ const [name, setName] = useState("")
 
   useEffect(() => {
-    const url = "fetch URL";
+    const url = "https://mealdeal.herokuapp.com/order/26";
     const fetchData = async () => {
       try {
-        const response = await fetch(url)
+        await fetch(url)
           .then((response) => response.json())
           .then((res) => {
             setData(res);
-            setPlans(res.plans);
-            console.log(res);
-            console.log(res.plans);
+            console.log(res[0])
+            setName(res[0].vendorName);
+            //setPlans(data.plans);
+            console.log(data);
+            //console.log(res.plans);
           });
       } catch (error) {
         console.log("error", error);
@@ -49,42 +51,45 @@ function TiffinVendorHome(props) {
   return (
     <div className="tiffin-vendor-home">
       <br></br>
-      <h1>&nbsp;Welcome, [Vendor Name]</h1>
+      <h1>&nbsp;Welcome, {name}</h1>
       <br></br>
       <h4>&nbsp;&nbsp; Orders:</h4>
-      {plans.map((plan, index) => (
-        <div className="card mx-3 my-3" key={index}>
+      {data.map((order) => (
+      <div>
+        <div className="card mx-3 my-3">
         <div className="card-body">
             <div className="row">
+              {order.plans.map((plan) => (
               <div className="col-sm-6">
                 <CardTitle tag="h5">Subscription Type: {plan.type}</CardTitle>
                 <CardSubtitle tag="h6" className="mb-2 text-muted">
-                  Start Date: {plan.startDate}
+                  Start Date: {plan.start}
                 </CardSubtitle>
                 <CardSubtitle tag="h6" className="mb-2 text-muted">
-                  End Date: {plan.endDate}
+                  End Date: {plan.end}
                 </CardSubtitle>
-              </div>
+              </div>))}
               <div className="col-sm-6">
                 <CardTitle tag="h5">Customer Details</CardTitle>
                 <CardSubtitle tag="h6" className="mb-2 text-muted">
-                  Name: {data.customerName}
+                  Name: {order.customerName}
                 </CardSubtitle>
                 <CardSubtitle tag="h6" className="mb-2 text-muted">
-                  Address: {data.address}
+                  Address: {order.address}
                 </CardSubtitle>
                 <CardSubtitle tag="h6" className="mb-2 text-muted">
-                  Phone: {data.phone}
+                  Phone: {order.phone}
                 </CardSubtitle>
                 <CardSubtitle tag="h6" className="mb-2 text-muted">
-                  Email: {data.email}
+                  Email: {order.email}
                 </CardSubtitle>
               </div>
             </div>
             <CardSubtitle tag="h5" className="mt-2 text-muted">
-              <b>Total Amount: {data.totalAmount}</b>
+              <b>Total Amount: {order.totalAmount}</b>
             </CardSubtitle>
             </div>
+          </div>
           </div>
       ))}
     </div>

@@ -169,7 +169,7 @@ function App() {
           }
         />
 <Route
-          path={"/vendordashboard"}
+          path={"/vendorHome"}
           element={<TiffinVendorHome auth={state} />}
         />
         <Route path="*" element={<NotFound />} />
