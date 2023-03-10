@@ -158,7 +158,7 @@ function App() {
         />
         <Route
           path="/editprofile"
-          element={<EditCustomerProfile/>}
+          element={<EditCustomerProfile user={getUser}/>}
         />
       </Routes>
     </React.Fragment>

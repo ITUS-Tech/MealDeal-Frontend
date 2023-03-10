@@ -14,7 +14,8 @@ function EditCustomerProfile(props){
     const [errorMessage, setErrorMessage] = useState("");
 
     const [user, setUser] = useState({});
-    fetch("http://mealdeal.herokuapp.com/user/29")
+    const { userId, isLoggedIn, isCustomer } = props.user();
+    fetch(`http://mealdeal.herokuapp.com/user/${userId}`)
     .then((response) => response.json())
     .then((data) => setUser(data));
 
