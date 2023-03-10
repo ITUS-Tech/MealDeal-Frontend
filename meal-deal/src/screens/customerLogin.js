@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "../styles/login.css";
 import FormInput from "../common/formInput";
 
-function LoginPage() {
+function LoginPage(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -25,6 +25,7 @@ function LoginPage() {
     const formData = { email, password };
 
     try {
+      console.log(formData);
       await fetch("http://mealdeal.herokuapp.com/login", {
         method: "POST",
         headers: {
@@ -42,7 +43,7 @@ function LoginPage() {
         .then((res) => {
           console.log(res);
           localStorage.setItem("userId", res);
-          localStorage.setItem("type", "customer");
+          localStorage.setItem("isCustomer", true);
           window.location.href = "/";
         });
     } catch (error) {
