@@ -48,12 +48,13 @@ function TiffinVendorRegister(props) {
   };
 
   return (
-    <React.Fragment>
-      <div
-        className="login-card"
-        style={{ margin: "10px auto", width: "450px" }}
-      >
-        <div className="card-body">
+    <div className="bgImage">
+      <div className="container">
+        <div className="row">        
+          <div className="col-md-9 col-lg-9 col-sm-9">
+            <p>Hello there</p>
+          </div>
+          <div className="col-lg-3 col-md-3 col-sm-3 card p-4">
           <form>
             <h5 className="card-title mb-5">Tiffin Vendor Register</h5>
             <FormInput
@@ -165,9 +166,10 @@ function TiffinVendorRegister(props) {
               </Link>
             </h5>
           </form>
+          </div>
         </div>
       </div>
-    </React.Fragment>
+    </div>
   );
 }
 
