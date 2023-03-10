@@ -21,7 +21,6 @@ function TiffinVendorDetails(props) {
   const [quantity, setQuantity] = useState(0);
   const [isSelected, setIsSelected] = useState(false);
   const [index, setIndex] = useState(0);
-  // const [Cdate, setDate] = useState(new Date().toLocaleDateString('fr-FR'));
   const [opacity, setOpacity] = useState(0.1);
 
   const handleOptionChange = (event) => {
