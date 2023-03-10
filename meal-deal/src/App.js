@@ -24,6 +24,8 @@ import TiffinVendorSubscriptions from "./screens/tiffinVendorSubscriptions";
 import Cart from "./screens/Cart";
 import ViewOrderHistory from "./screens/viewOrderHistory";
 import ResetPassword from "./screens/resetPasswrod";
+import PaymentForm from "./screens/paymentPage";
+import ConfirmPage from "./screens/confirmationPage";
 
 function App() {
 
@@ -98,7 +100,7 @@ function App() {
 
         <Route
           path={"/vendor/:id"}
-          element={<TiffinVendorDetails auth={state} />}
+          element={<TiffinVendorDetails user={getUser} />}
         />
 
         <Route
@@ -149,7 +151,7 @@ function App() {
         <Route path="/order-history" element={<ViewOrderHistory />} />
 <Route
           path={"/vendorHome"}
-          element={<TiffinVendorHome auth={state} />}
+          element={<TiffinVendorHome user={getUser} />}
         />
         <Route path="*" element={<NotFound />} />
         <Route
@@ -160,6 +162,8 @@ function App() {
           path="/editprofile"
           element={<EditCustomerProfile/>}
         />
+        <Route path="/payment/:id" element={<PaymentForm/>}/>
+        <Route path="/confirm/:id" element={<ConfirmPage/>}/>
       </Routes>
     </React.Fragment>
   );
