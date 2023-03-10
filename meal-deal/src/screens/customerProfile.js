@@ -40,7 +40,7 @@ function CustomerProfile(props) {
         </tr>
         <tr>
           <center>
-            <Button variant="primary" /* onClick={() => navigate('/')} */>Edit Profile</Button>
+            <Button variant="primary" onClick={() => navigate('/editprofile')}>Edit Profile</Button>
           </center>
         </tr>
         <tr>
