@@ -5,13 +5,17 @@ import config from "../config.json";
 import "../styles/navBar.css";
 
 function NavBar(props) {
-  const { isLoggedIn, isCustomer } = props.auth;
+  const { userId, isLoggedIn, isCustomer } = props.user();
   let navigate = useNavigate();
+  //console.log(props.user());
 
   const logOut = () => {
-    localStorage.removeItem(config.localStorageKey);
-    props.updateToken(null, true);
-    isCustomer ? navigate("/customer/login") : navigate("/tiffin-vendor/login");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("isCustomer");
+    if(isCustomer)
+      navigate("/customer/login")
+    else
+      navigate("/tiffin-vendor/login")
   };
 
   return (
@@ -55,15 +59,15 @@ function NavBar(props) {
             <ul className="navbar-nav ml-auto justify-content">
               <button
                 className="nav-link btn"
-                onClick={() => navigate("/customer/subscriptions")}
+                onClick={() => navigate("/cart")}
               >
-                Subscriptions
+                Cart
               </button>
               <button
                 className="nav-link btn"
-                onClick={() => navigate("/customer/edit")}
+                onClick={() => navigate("/customerprofile")}
               >
-                Edit Details
+                Profile
               </button>
               <button className="nav-link btn" onClick={logOut}>
                 Logout
@@ -78,7 +82,7 @@ function NavBar(props) {
                 className="nav-link btn"
                 onClick={() => navigate("/tiffin-vendor/subscriptions")}
               >
-                Subscriptions
+                Dashboard
               </button>
               <button
                 className="nav-link btn"

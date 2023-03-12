@@ -9,6 +9,7 @@ import { getDate } from "date-fns";
 import "../styles/vendorDetails.css";
 
 function TiffinVendorDetails(props) {
+  const { userId, isLoggedIn, isCustomer } = props.user();
   const params = useParams();
   const [data, setData] = useState({});
   const [prices, setPrices] = useState({});
@@ -21,7 +22,6 @@ function TiffinVendorDetails(props) {
   const [quantity, setQuantity] = useState(0);
   const [isSelected, setIsSelected] = useState(false);
   const [index, setIndex] = useState(0);
-  // const [Cdate, setDate] = useState(new Date().toLocaleDateString('fr-FR'));
   const [opacity, setOpacity] = useState(0.1);
 
   const handleOptionChange = (event) => {
@@ -168,6 +168,7 @@ function TiffinVendorDetails(props) {
   async function handleClick() {
     var dataStore = {
       userId: 1,
+      vendorId: data.id,
       vendorName: data.vendorName,
       items: [
         {
@@ -179,7 +180,7 @@ function TiffinVendorDetails(props) {
     };
 
     // Send data to the backend via POST
-    await fetch(`http://mealdeal.herokuapp.com/cart/add/1`, {
+    await fetch(`http://mealdeal.herokuapp.com/cart/add/${userId}`, {
       // Enter your IP address here
 
       method: "PUT",

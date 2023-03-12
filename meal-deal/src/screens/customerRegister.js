@@ -109,6 +109,7 @@ function SignupForm() {
         .then((res) => {
           console.log(res.id, res.name);
           localStorage.setItem("userId", res.id);
+          localStorage.setItem("isCustomer", formData.type==='customer');
           window.location.href = "/";
         });
     } catch (error) {

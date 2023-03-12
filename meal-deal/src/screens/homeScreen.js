@@ -11,7 +11,7 @@ function CustomerHome(props) {
   const [name, setName] = useState("Guest");
   const [vegFilter, setVegFilter] = useState(false);
   const [sortBy, setSortBy] = useState("default"); // default, price, rating
-  const { isLoggedIn, isCustomer, token, updateToken } = props.auth;
+  //const { isLoggedIn, isCustomer, token, updateToken } = props.auth;
   const [tiffinVendors, setTiffinVendors] = useState([]);
   const [filteredTiffinVendors, setFilteredTiffinVendors] = useState([]);
   const [searched, setSearched] = useState(false);
@@ -37,16 +37,16 @@ function CustomerHome(props) {
       });
   }, []);
 
-  useEffect(() => {
-    if (!isLoggedIn) return;
-    if (isLoggedIn && !isCustomer) {
-      clearToken(updateToken);
-      return;
-    }
-    const name = getName(token);
-    if (name) setName(name);
-    else toast.error("invalid customer");
-  }, [isLoggedIn, isCustomer, updateToken, token]);
+  // useEffect(() => {
+  //   if (!isLoggedIn) return;
+  //   if (isLoggedIn && !isCustomer) {
+  //     clearToken(updateToken);
+  //     return;
+  //   }
+  //   const name = getName(token);
+  //   if (name) setName(name);
+  //   else toast.error("invalid customer");
+  // }, [isLoggedIn, isCustomer, updateToken, token]);
 
   // Handle Price sorting
   const handleSortOption = (event) => {
