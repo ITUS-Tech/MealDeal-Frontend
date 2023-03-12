@@ -125,7 +125,7 @@ function SignupForm() {
           </div>
           <div className="col-lg-3 col-md-3 col-sm-3 card p-4">
             <form onSubmit={handleSubmit}>
-              <h5 className="card-title text-center">Customer Register</h5>
+              <h5 className="card-title text-center mb-4">Customer Register</h5>
               <FormInput
                 value={fname}
                 type="text"
