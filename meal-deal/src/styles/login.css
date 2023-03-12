@@ -52,6 +52,8 @@ body {
     cursor: pointer;
     transition: background-color 0.2s;
   }
+
+  
   
   button:hover {
     background-color: #0d8bf2;
@@ -101,6 +103,9 @@ body {
     background-color: #FFC004 !important;
     color:#252525 !important;
     border: 1px solid #FFC004 !important;
+    padding:.75rem 1.25rem !important;
+    font-weight: 600 !important;
+    font-size:16px !important;
   }
 
   .btn-primary:focus, .btn-primary:hover{
@@ -120,6 +125,11 @@ body {
     background-size: cover;
   }
 
-  
+  .reduce--quantity-btn{
+    margin-right:1rem
+  }
+  .increase--quantity-btn{
+    margin-left: 1rem;
+  }
 
  

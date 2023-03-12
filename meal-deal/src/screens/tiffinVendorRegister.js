@@ -56,7 +56,7 @@ function TiffinVendorRegister(props) {
           </div>
           <div className="col-lg-3 col-md-3 col-sm-3 card p-4">
           <form>
-            <h5 className="card-title mb-5">Tiffin Vendor Register</h5>
+            <h5 className="card-title mb-4">Tiffin Vendor Register</h5>
             <FormInput
               value={tiffinVendor["business name"]}
               type="text"
