@@ -20,7 +20,7 @@ function NavBar(props) {
 
   return (
     <nav className="navbar navbar-expand-md navbar-dark">
-      <div className="container-fluid ">
+      <div className="container">
         <Link
           to={isLoggedIn && !isCustomer ? "/tiffin-vendor" : "/customer"}
           className="navbar-brand fs-4 mx-4 fw-bold"

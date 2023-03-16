@@ -13,7 +13,6 @@ function Cart(props) {
   const [cart, setCart] = useState({});
   const [items, setItems] = useState([]);
 
-
   useEffect(() => {
       axios.get(`https://mealdeal.herokuapp.com/cart/${userId}`)
       .then((respnse) => {
@@ -24,31 +23,30 @@ function Cart(props) {
   
   console.log(cart);
 
-  const handleQuant= async (index, add)=>{
+  const handleQuant = async (index, add) => {
     console.log(cart.items[index]);
-    let total= cart.totalPrice
-    if(add){
-      items[index].quantity+=1;
-      total+=items[index].price;
-    }
-    else{
-      items[index].quantity-=1;
-      total-=items[index].price;
-      if(items[index].quantity===0){
-        items.splice(index,1);
+    let total = cart.totalPrice;
+    if (add) {
+      items[index].quantity += 1;
+      total += items[index].price;
+    } else {
+      items[index].quantity -= 1;
+      total -= items[index].price;
+      if (items[index].quantity === 0) {
+        items.splice(index, 1);
       }
     }
-    let newCartItems={...cart, items: items};
-    let newCart={...newCartItems, totalPrice: total};
+    let newCartItems = { ...cart, items: items };
+    let newCart = { ...newCartItems, totalPrice: total };
     setCart(newCart);
     await fetch(`http://mealdeal.herokuapp.com/cart/add/${userId}`,{
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(cart)
+      body: JSON.stringify(cart),
     });
-  }
+  };
 
   const handlePayment= async () => {
     let order={
@@ -72,32 +70,59 @@ function Cart(props) {
 
   return (
     <div className="container">
-      {items.length>0?(
-      <><h2>Ordering from {cart.vendorName}</h2><br /><Table striped>
-          <thead>
-            <tr>
-              <th>Plan</th>
-              <th>Price</th>
-              <th>Quantity</th>
-            </tr>
-          </thead>
-          <tbody>
-            {items.map((item, index) => (
-              <tr>
-                <td>{item.subscription}</td>
-                <td>{item.price}</td>
-                <td>
-                  <Button variant="outline-danger" size="sm" onClick={() => handleQuant(index, false)}>-</Button>
-                  {item.quantity}
-                  <Button variant="outline-success" size="sm" onClick={() => handleQuant(index, true)}>+</Button></td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-        <h3>Total: ${cart.totalPrice}</h3>
-        <Button variant="info" size="sm" onClick={handlePayment}>Make Payment</Button></>
-      ):(
-        <h2>Cart Empty...</h2>
+      {items.length > 0 ? (        
+        <div className="row mt-3">
+          <h3 className="mb-4">Ordering from {cart.vendorName}</h3>
+          <div className="col-md-12 col-lg-12 col-sm-12">
+            <div className="card shadow-sm">
+              <div className="card--body">
+                <div className="card-content">
+                  <Table className="table">
+                    <thead>
+                      <tr>
+                        <th>Item</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {items.map((item, index) => (
+                        <tr>
+                          <td>{item.subscription}</td>
+                          <td>{item.price}</td>
+                          <td>
+                            <Button
+                              className="reduce--quantity-btn"
+                              variant="outline-danger"
+                              size="lg"
+                              onClick={() => handleQuant(index, false)}
+                            >
+                              -
+                            </Button>
+                            {item.quantity}
+                            <Button
+                            className="increase--quantity-btn"
+                              variant="outline-success"
+                              size="lg"
+                              onClick={() => handleQuant(index, true)}
+                            >
+                              +
+                            </Button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </Table>
+                  <h5>Total: ${cart.totalPrice}</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>  
+      ) : (
+        <div className="row mt-3">
+           <h3 className="mb-4">Your Cart is Empty !!</h3>
+        </div>
       )}
     </div>
   );
