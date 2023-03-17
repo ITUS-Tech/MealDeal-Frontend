@@ -79,9 +79,15 @@ function LoginPage() {
                 <div className="error-message">{errorMessage}</div>
               )}
             </form>
-            <p className="mt-3">
+            <h6 className="message mt-3">
+              <center>
+                <Link to="/resetPassword">Forgot Password?</Link>
+              </center>
+            </h6>
+            {/* <p className="mt-3">
               <center>Don't have an account?</center>
             </p>
+             */}
             <h6 className="message mt-3">
               <center>
                 Not a Tiffin Vendor?{" "}
@@ -93,7 +99,7 @@ function LoginPage() {
             <h6 className="message mt-1">
               <center>
                 Not Registered?{" "}
-                <Link className="pointer" to="/tiffin-vendor/register">
+                <Link className="pointer" to="/customer/register">
                   Register
                 </Link>
               </center>
