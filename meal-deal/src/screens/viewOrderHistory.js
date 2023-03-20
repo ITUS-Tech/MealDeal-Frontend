@@ -18,7 +18,7 @@ function ViewOrderHistory(props) {
     <React.Fragment>
       <div className="container">
         <div className="row mt-3">
-          <h3 className="mb-4">Your Orders</h3>
+          <h3 className="mb-4">Your Past Orders</h3>
           <div className="col-lg-12 col-md-12 col-sm-12">
             <div className="card shadow-sm">
               <div className="card--body">

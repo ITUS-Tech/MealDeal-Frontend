@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
@@ -28,6 +28,10 @@ import PaymentForm from "./screens/paymentPage";
 import ConfirmPage from "./screens/confirmationPage";
 
 function App() {
+  useEffect(() => {
+    document.title = 'Meal Deal';
+  }, []);
+
   const [state, setState] = useState({
     userId: -1,
     isLoggedIn: false,
@@ -47,7 +51,7 @@ function App() {
   return (
     <React.Fragment>
       <NavBar user={getUser} />
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <Routes>
         <Route path="/" element={<Navigate to="/customer" replace />} />
         <Route path="/customer" element={<CustomerHome />} />

@@ -77,7 +77,7 @@ function LoginPage(props) {
                 id="password"
                 onChange={(event) => setPassword(event.target.value)}
               />
-              <button className="btn btn-primary mx-auto" type="submit">
+              <button className="btn btn-primary mt-3" type="submit">
                 Login
               </button>
               {errorMessage && (
