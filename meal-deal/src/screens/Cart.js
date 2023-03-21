@@ -71,16 +71,16 @@ function Cart(props) {
   return (
     <div className="container">
       {items.length > 0 ? (        
-        <div className="row mt-3">
+        <div className="offset-sm-2">
           <h3 className="mb-4">Ordering from {cart.vendorName}</h3>
-          <div className="col-md-12 col-lg-12 col-sm-12">
+          <div className="col-sm-8">
             <div className="card shadow-sm">
               <div className="card--body">
                 <div className="card-content">
                   <Table className="table">
                     <thead>
                       <tr>
-                        <th>Item</th>
+                        <th>Subscription</th>
                         <th>Price</th>
                         <th>Quantity</th>
                       </tr>
@@ -89,7 +89,7 @@ function Cart(props) {
                       {items.map((item, index) => (
                         <tr>
                           <td>{item.subscription}</td>
-                          <td>{item.price}</td>
+                          <td>${item.price}</td>
                           <td>
                             <Button
                               className="reduce--quantity-btn"
