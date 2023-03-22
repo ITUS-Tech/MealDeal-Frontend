@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FormInput from "../common/formInput";
 import { useNavigate } from "react-router-dom";
 
@@ -11,24 +11,27 @@ function EditCustomerProfile(props){
     const [address, setAddress] = useState("");
     const [type, setType] = useState("");
     const [password, setPassword] = useState("");
-    const [errorMessage, setErrorMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");   
+    const {userId, isLoggedIn, isCustomer } = props.user();
 
-    const [user, setUser] = useState({});
-    const { userId, isLoggedIn, isCustomer } = props.user();
+    useEffect(() => {
     fetch(`http://mealdeal.herokuapp.com/user/${userId}`)
     .then((response) => response.json())
-    .then((data) => setUser(data));
+    .then((data) => {
+      setFName(data.fname);
+      setLName(data.lname);
+      setPhno(data.phno);
+      setEmail(data.email);
+      setAddress(data.address);
+      setType(data.type);
+      setPassword(data.password);
+    });
+    }, [])
 
     let navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-    
-        const validateEmail = (email) => {
-          // Regex to validate email format
-          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          return emailRegex.test(email);
-        };
     
         const validatePhone = (phno) => {
           // Regex to validate phone number format
@@ -53,30 +56,25 @@ function EditCustomerProfile(props){
           setErrorMessage("Please enter a valid 10-digit phone number.");
           return;
         }
-    
-        // Validate email
-        if (!validateEmail(email)) {
-          setErrorMessage("Please enter a valid email address.");
-          return;
-        }
-    
+       
         // if (!address(address)) {
         //   setErrorMessage('Please enter your Address.');
         //   return;
         // }
 
         const formData = {
+          id:userId,
           fname,
           lname,
           phno,
-          email,
+          email:email,
           address,
           type,
-          password
+          password,
         };
     
         try {
-          await fetch(`http://mealdeal.herokuapp.com/29`, {
+          await fetch(`http://mealdeal.herokuapp.com/user/${userId}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
@@ -87,23 +85,24 @@ function EditCustomerProfile(props){
               if (response.ok) {
                 navigate('/customerprofile')
               } else {
-                setErrorMessage("Wrong with response!");
+                setErrorMessage("Error");
               }
             });
         } catch (error) {
-          setErrorMessage("Something went wrong, please try again later.");
+          setErrorMessage("Error1");
         }
       };
 
     return(
         <div className="container">
+        <div className="col-lg-3 col-md-3 col-sm-3 card p-4">
         <form onSubmit={handleSubmit}>
               <h5 className="card-title text-center">Edit Profile</h5>
               <FormInput
                 value={fname}
                 type="text"
                 id="fname"
-                name={user.fname}
+                name={fname}
                 onChange={(event) => setFName(event.target.value)}
                 required
               />
@@ -111,7 +110,7 @@ function EditCustomerProfile(props){
                 value={lname}
                 type="text"
                 id="lname"
-                name={user.lname}
+                name={lname}
                 onChange={(event) => setLName(event.target.value)}
                 required
               />
@@ -119,30 +118,24 @@ function EditCustomerProfile(props){
                 value={phno}
                 type="text"
                 id="phno"
-                name={user.phno}
+                name={phno}
                 onChange={(event) => setPhno(event.target.value)}
-                required
-              />
-              <FormInput
-                value={email}
-                type="email"
-                id="email"
-                name={user.email}
-                onChange={(event) => setEmail(event.target.value)}
                 required
               />
               <FormInput
                 value={address}
                 type="text"
                 id="address"
-                name={user.address}
+                name={address}
                 onChange={(event) => setAddress(event.target.value)}
                 required
               />
+              {errorMessage && <div>{errorMessage}</div>}
               <button className="btn btn-primary d-flex" type="submit">
                 Save
               </button>
               </form>
+              </div>
               </div>
     );
 }
