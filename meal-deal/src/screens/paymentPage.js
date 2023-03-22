@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import '../styles/paymentScreen.css';
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const PaymentForm = () => {
+  const navigate = useNavigate();
+  const params = useParams();
   const [cardDetails, setCardDetails] = useState('');
   const [cvv, setCvv] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
@@ -42,6 +46,7 @@ const PaymentForm = () => {
     if (Object.keys(errors).length === 0) {
       alert('Payment Successful!');
       // Code to submit form goes here
+      navigate(`/confirm/${params.id}`);
     }
   };
 
