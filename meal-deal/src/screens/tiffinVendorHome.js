@@ -8,7 +8,7 @@ function TiffinVendorHome(props) {
   const [name, setName] = useState("");
 
   useEffect(() => {
-    const url = `https://mealdeal.herokuapp.com/order/3`;
+    const url = `https://mealdeal.herokuapp.com/order/${userId}`;
     const fetchData = async () => {
       try {
         await fetch(url)
