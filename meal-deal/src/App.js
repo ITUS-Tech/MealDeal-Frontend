@@ -142,7 +142,7 @@ function App() {
         />
         <Route path="*" element={<NotFound />} />
         <Route
-          path="/customerprofile"
+          path="/profile"
           element={<CustomerProfile user={getUser} />}
         />
         <Route path="/editprofile" element={<EditCustomerProfile user={getUser} />} />

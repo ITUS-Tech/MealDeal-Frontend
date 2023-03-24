@@ -8,12 +8,18 @@ import ViewOrderHistory from "./viewOrderHistory";
 function CustomerProfile(props) {
   
   const [user, setUser] = useState({});
+  const [vendorDetails, setVendorDetails] = useState({});
   const { userId, isLoggedIn, isCustomer } = props.user();
 
   useEffect(() => {
+
   fetch(`http://mealdeal.herokuapp.com/user/${userId}`)
   .then((response) => response.json())
   .then((data) => setUser(data));
+
+  fetch(`http://mealdeal.herokuapp.com/vendor/${userId}`)
+  .then((response) => response.json())
+  .then((res) => setVendorDetails(res));
 }, [])
 
   let navigate = useNavigate();
@@ -50,9 +56,41 @@ function CustomerProfile(props) {
       </Table>
       <Button variant="primary" onClick={() => navigate('/editprofile')}>Edit Profile</Button>
       </div>
+      { isCustomer ?(
       <div className="">
       <ViewOrderHistory user={userId} />
-      </div></>
+      </div>
+      )
+      :(
+        <div>
+          <h2>Vendor Details:</h2>
+      <Table borderless>
+      <tbody>
+        <tr>
+        <td><b>Vendor Name: </b></td>
+        <td>{vendorDetails.vendorName}</td>
+        </tr>
+        <tr>
+        <td><b>Address: </b></td>
+        <td>{vendorDetails.address}</td>
+        </tr>
+        {/* <tr>
+        <td><b>Email: </b></td>
+        <td>{user.email}</td>
+        </tr>
+        <tr>
+        <td><b>Address: </b></td>
+        <td>{user.address}</td>
+        </tr>
+        <tr>
+        <td><b>Phone: </b></td>
+        <td>{user.phno}</td>
+        </tr> */}
+      </tbody>
+      </Table>
+        </div>
+      )}
+      </>
       )}
     </div>
   );
