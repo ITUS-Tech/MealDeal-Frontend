@@ -39,7 +39,7 @@ function Cart(props) {
     let newCartItems = { ...cart, items: items };
     let newCart = { ...newCartItems, totalPrice: total };
     setCart(newCart);
-    await fetch(`http://mealdeal.herokuapp.com/cart/add/${userId}`,{
+    await fetch(`http://mealdeal.herokuapp.com/cart/edit/${userId}`,{
       method: 'PUT',
       headers: {
         "Content-Type": "application/json",
@@ -52,8 +52,8 @@ function Cart(props) {
     let order={
       userId: userId,
       vendorId: cart.vendorId,
-      VendorName: cart.vendorName,
-      plans: items  ,
+      vendorName: cart.vendorName,
+      plans: items,
       totalAmount: cart.totalPrice
     }
     await fetch(`http://mealdeal.herokuapp.com/order/add`,{
@@ -82,6 +82,8 @@ function Cart(props) {
                       <tr>
                         <th>Subscription</th>
                         <th>Price</th>
+                        <th>Starts on</th>
+                        <th>Ends on</th>
                         <th>Quantity</th>
                       </tr>
                     </thead>
@@ -90,6 +92,8 @@ function Cart(props) {
                         <tr>
                           <td>{item.subscription}</td>
                           <td>${item.price}</td>
+                          <td>{item.startDate}</td>
+                          <td>{item.endDate}</td>
                           <td>
                             <Button
                               className="reduce--quantity-btn"
@@ -113,7 +117,8 @@ function Cart(props) {
                       ))}
                     </tbody>
                   </Table>
-                  <h5>Total: ${cart.totalPrice}</h5>
+                  <h5>Total: ${cart.totalPrice}</h5><br/>
+                  <Button onClick={handlePayment}>Proceed to Pay</Button>
                 </div>
               </div>
             </div>

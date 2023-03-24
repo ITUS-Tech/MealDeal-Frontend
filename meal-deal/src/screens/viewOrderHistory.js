@@ -44,7 +44,16 @@ function ViewOrderHistory(props) {
                                 Subscription Type: <b>{plan.subscription}</b>
                               </h6>
                             </div>
-                            
+                            <div className="col-md-3">
+                              <p className="mb-2 text-muted">
+                                Start Date: {plan.startDate}
+                              </p>
+                            </div>
+                            <div className="col-md-3">
+                              <p className="mb-2 text-muted">
+                                End Date: {plan.endDate}
+                              </p>
+                            </div>
                           </div>
                         </div>
                       ))}
