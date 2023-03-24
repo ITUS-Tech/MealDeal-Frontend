@@ -88,7 +88,7 @@ function NavBar(props) {
                 className="nav-link btn"
                 onClick={() => navigate("/tiffin-vendor/edit")}
               >
-                Edit Details
+                Profile
               </button>
               <button className="nav-link btn" onClick={logOut}>
                 Logout
