@@ -28,6 +28,10 @@ body {
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1rem;
   }
   
   input[type="text"],
@@ -95,7 +99,7 @@ body {
 
   form .btn-primary{
     margin: 0 auto;
-    /* display: flex; */
+    display: flex;
     padding: 0.5rem 2rem;
   }
 
@@ -123,6 +127,8 @@ body {
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)),
     url("../images/login-bg.jpg");
     background-size: cover;
+    position: fixed;
+    width: 100%;
   }
 
   .reduce--quantity-btn{
@@ -132,4 +138,13 @@ body {
     margin-left: 1rem;
   }
 
+  .text-right{
+    text-align: right;
+  }
  
+  .total--card{
+    /* background-color: #FFC004; */
+    color: #252525;
+    border-radius: 1rem;
+    border: 1px solid #252525;
+  }

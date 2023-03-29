@@ -38,28 +38,28 @@ function CustomerProfile(props) {
                     Phone: <b>{user.phno}</b>
                   </li>
                 </ul>
+
+                <div className="row">
+                  <div className="col-md-3">
+                    <Button
+                      className="mt-3 mb-3"
+                      variant="primary"
+                      onClick={() => navigate("/editprofile")}
+                    >
+                      Edit Profile
+                    </Button>
+                  </div>
+                  <div className="col-md-4">
+                    <Button
+                      className="mt-3 mb-3"
+                      variant="primary"
+                      onClick={() => navigate("/order-history")}
+                    >
+                      View Past Orders
+                    </Button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-6">
-          <div className="row">
-            <div className="col-md-3">
-              <Button
-                className="mt-3 mb-3"
-                variant="primary"
-                onClick={() => navigate("/editprofile")}
-              >
-                Edit Profile
-              </Button>
-            </div>
-            <div className="col-md-4">
-              <Button
-                className="mt-3 mb-3"
-                variant="primary" onClick={() => navigate("/order-history")} 
-              >
-                View Past Orders
-              </Button>
             </div>
           </div>
         </div>

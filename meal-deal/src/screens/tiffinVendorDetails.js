@@ -192,12 +192,11 @@ function TiffinVendorDetails(props) {
   }
 
   return (
-    <div className="tiffin-vendor-detail mt-1">
-      <section className="section-content padding-y bg">
-        <div className="container">
-          <h3 className="title">{data.vendorName}</h3>
-          <div className="row">
-            <div className="col-md-6">
+    
+        <div className="container">          
+          <div className="row mt-3">
+          <h3 className="mb-4">{data.vendorName}</h3>
+            <div className="col-lg-5 col-md-5 col-sm-12 col-xs-12">
               <div className="vendor-subscription--card">
                 <h5 className="vendor--subscription mt-4 mb-4">Subscription</h5>
                 <div className="form-group mb-4">
@@ -229,7 +228,7 @@ function TiffinVendorDetails(props) {
                                 />
                                 <label
                                   htmlFor={key}
-                                  style={{ marginLeft: "10px" }}
+                                  // style={{ marginLeft: "10px" }}
                                 >
                                   {" "}
                                   &nbsp;{key}
@@ -242,24 +241,24 @@ function TiffinVendorDetails(props) {
                   </div>{" "}
                   {showHide && (
                     <div className="mt-3">
-                      <h5 className="label">
-                        Price :
+                      <h6 className="label">
+                        Price:
                         <b>
                           <var className="price">
                             &nbsp;{prices[showHide]}$ /{showHide}
                           </var>
                         </b>
-                      </h5>
+                      </h6>
                     </div>
                   )}
                   {showHide === "Day" && (
                     <div>
                       <div className="mt-3 mb-2">
-                        <h5 className="label">Quantity</h5>
+                        <h6 className="label">Quantity</h6>
                       </div>
                       <button
                         onClick={handleDecrease}
-                        className="btn btn-secondary"
+                        className="reduce--quantity-btn btn btn-outline-danger btn-lg"
                       >
                         -
                       </button>{" "}
@@ -267,7 +266,7 @@ function TiffinVendorDetails(props) {
                       {quantity} &nbsp;
                       <button
                         onClick={handleIncrease}
-                        className="btn btn-secondary"
+                        className="increase--quantity-btn btn btn-outline-success btn-lg"
                       >
                         +
                       </button>
@@ -280,11 +279,11 @@ function TiffinVendorDetails(props) {
                         {renderDatePickers()}
                       </div>
                       <div className="mt-3 mb-2">
-                        <h5 className="label">Quantity</h5>
+                        <h6 className="label">Quantity</h6>
                       </div>
                       <button
                         onClick={handleDecrease}
-                        className="btn btn-secondary"
+                        className="reduce--quantity-btn btn btn-outline-danger btn-lg"
                       >
                         -
                       </button>{" "}
@@ -292,7 +291,7 @@ function TiffinVendorDetails(props) {
                       {quantity} &nbsp;
                       <button
                         onClick={handleIncrease}
-                        className="btn btn-secondary"
+                        className="increase--quantity-btn btn btn-outline-success btn-lg"
                       >
                         +
                       </button>
@@ -305,11 +304,11 @@ function TiffinVendorDetails(props) {
                         {renderDatePickers()}
                       </div>
                       <div className="mt-3 mb-2">
-                        <h5 className="label">Quantity</h5>
+                        <h6 className="label">Quantity</h6>
                       </div>
                       <button
                         onClick={handleDecrease}
-                        className="btn btn-secondary"
+                        className="reduce--quantity-btn btn btn-outline-danger btn-lg"
                       >
                         -
                       </button>{" "}
@@ -317,7 +316,7 @@ function TiffinVendorDetails(props) {
                       {quantity} &nbsp;
                       <button
                         onClick={handleIncrease}
-                        className="btn btn-secondary"
+                        className="increase--quantity-btn btn btn-outline-success btn-lg"
                       >
                         +
                       </button>
@@ -330,11 +329,11 @@ function TiffinVendorDetails(props) {
                         {renderDatePickers()}
                       </div>
                       <div className="mt-3 mb-2">
-                        <h5 className="label">Quantity</h5>
+                        <h6 className="label">Quantity</h6>
                       </div>
                       <button
                         onClick={handleDecrease}
-                        className="btn btn-secondary"
+                        className="reduce--quantity-btn btn btn-outline-danger btn-lg"
                       >
                         -
                       </button>{" "}
@@ -342,7 +341,7 @@ function TiffinVendorDetails(props) {
                       {quantity} &nbsp;
                       <button
                         onClick={handleIncrease}
-                        className="btn btn-secondary"
+                        className="increase--quantity-btn btn btn-outline-success btn-lg"
                       >
                         +
                       </button>
@@ -355,11 +354,11 @@ function TiffinVendorDetails(props) {
                         {renderDatePickers()}
                       </div>
                       <div className="mt-3 mb-2">
-                        <h5 className="label">Quantity</h5>
+                        <h6 className="label">Quantity</h6>
                       </div>
                       <button
                         onClick={handleDecrease}
-                        className="btn btn-secondary"
+                        className="reduce--quantity-btn btn btn-outline-danger btn-lg"
                       >
                         -
                       </button>{" "}
@@ -367,7 +366,7 @@ function TiffinVendorDetails(props) {
                       {quantity} &nbsp;
                       <button
                         onClick={handleIncrease}
-                        className="btn btn-secondary"
+                        className="increase--quantity-btn btn btn-outline-success btn-lg"
                       >
                         +
                       </button>
@@ -384,7 +383,7 @@ function TiffinVendorDetails(props) {
                 </div>
               </div>
             </div>
-            <div className="col-md-3">
+            <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12">
               <div className="vendor-menu--card">
                 <h5 className="mt-4 mb-4">Menu</h5>
                 <div>
@@ -419,7 +418,7 @@ function TiffinVendorDetails(props) {
                 </div>
               </div>
             </div>
-            <div className="col-md-3">
+            <div className="col-lg-3 col-md-3 col-sm-12 col-xs-12">
               <div className="outer-wrapper">
                 <div className="frame">
                   <img
@@ -431,8 +430,6 @@ function TiffinVendorDetails(props) {
             </div>
           </div>
         </div>
-      </section>
-    </div>
   );
 }
 

@@ -95,8 +95,8 @@ function EditCustomerProfile(props) {
   return (
     <div className="container">
       <div className="row mt-3">
-        <h3 className="mb-4">Edit Profile</h3>
-        <div className="col-lg-12 col-md-12 col-sm-12">
+        <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 card p-4 shadow-sm">
+        <h5 className="card-title mb-4 text-center">Edit Profile</h5>
           <form onSubmit={handleSubmit}>
             <div className="row">
               <div className="col-md-6">
