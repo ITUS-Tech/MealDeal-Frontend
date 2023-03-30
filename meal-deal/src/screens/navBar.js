@@ -80,7 +80,7 @@ function NavBar(props) {
             <ul className="navbar-nav ml-auto justify-content">
               <button
                 className="nav-link btn"
-                onClick={() => navigate("/tiffin-vendor/subscriptions")}
+                onClick={() => navigate("/vendorhome")}
               >
                 Dashboard
               </button>

@@ -399,23 +399,9 @@ function TiffinVendorDetails(props) {
                       ))}
                   </ul> */}
 
-                  <table className="table">
-                    <thead>
-                      <tr>
-                        <th scope="col">Item</th>
-                        <th scope="col">Price</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {menu &&
-                        Object.keys(menu).map((key) => (
-                          <tr key={key} scope="row">
-                            <td>{key}</td>
-                            <td>{menu[key]}</td>
-                          </tr>
-                        ))}
-                    </tbody>
-                  </table>
+                  <pre>
+                    {data.menu}
+                  </pre>
                 </div>
               </div>
             </div>
