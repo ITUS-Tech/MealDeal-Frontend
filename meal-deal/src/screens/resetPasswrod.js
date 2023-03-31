@@ -7,6 +7,9 @@ const ResetPassword = () => {
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
 
+//   const sgMail = require('@sendgrid/mail');
+// sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -22,6 +25,24 @@ const ResetPassword = () => {
       setSuccessMessage("Reset password link has been sent to your email.");
       setError(null);
     }
+
+
+    // const msg = {
+    //   to: email,
+    //   from: 'your-email@example.com',
+    //   subject: 'Reset your password',
+    //   html: `<p>Click this <a href="https://your-app.com/reset-password/${email}">link</a> to reset your password.</p>`,
+    // };
+    
+    // sgMail.send(msg)
+    //   .then(() => {
+    //     setSuccessMessage("Reset password link has been sent to your email.");
+    //     setError(null);
+    //   })
+    //   .catch((error) => {
+    //     setError("Failed to send reset password email. Please try again later.");
+    //     setSuccessMessage(null);
+    //   });
   };
 
   return (

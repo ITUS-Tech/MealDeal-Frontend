@@ -56,7 +56,7 @@ function LoginPage() {
         <div className="row">
           <div className="col-lg-3 col-md-3 col-sm-3 card p-4 offset-md-9 offset-lg-9 offset-sm-9 ">
             <form onSubmit={handleLogin}>
-              <h5 className="card-title mb-4 text-center">Vendor Login</h5>
+              <h5 className="card-title mb-4 text-center page--title">Vendor Login</h5>
               <FormInput
                 value={email}
                 type="text"

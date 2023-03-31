@@ -49,8 +49,8 @@ function TiffinVendorHome(props) {
   return (
     <div className="tiffin-vendor-home">
       <div className="container">
-        <div className="row">
-          <h3 className="mb-4">Welcome, {name}</h3>
+        <div className="row mt-3">
+          <h3 className="mb-4 page--title">Welcome, {name}</h3>
           <h5 className="">Orders:</h5>
           {data &&
             data.length > 0 &&
