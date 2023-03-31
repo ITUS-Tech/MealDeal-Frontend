@@ -109,9 +109,13 @@ function SignupForm() {
         })
         .then((res) => {
           console.log(res.id, res.name);
+          let isCustomer= formData.type === "customer";
           localStorage.setItem("userId", res.id);
-          localStorage.setItem("isCustomer", formData.type === "customer");
-          navigate("/")
+          localStorage.setItem("isCustomer", isCustomer);
+          if(isCustomer)
+            navigate("/");
+          else
+            navigate("/editprofile")
         });
     } catch (error) {
       setErrorMessage("Something went wrong, please try again later.");

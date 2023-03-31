@@ -14,7 +14,6 @@ function Cart(props) {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-<<<<<<< HEAD
     if(!isCustomer){
       alert("Please login to access cart");
       navigate("/customer/login");
@@ -27,16 +26,6 @@ function Cart(props) {
       })
   }}, []);
   
-=======
-    axios
-      .get(`https://mealdeal.herokuapp.com/cart/${userId}`)
-      .then((respnse) => {
-        setCart(respnse.data);
-        setItems(respnse.data.items);
-      });
-  }, []);
-
->>>>>>> main
   console.log(cart);
 
   const handleQuant = async (index, add) => {
