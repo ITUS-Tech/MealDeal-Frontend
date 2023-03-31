@@ -317,185 +317,191 @@ function TiffinVendorDetails(props) {
                         <div
                           style={{
                             display: "flex",
-                            alignItems: "center",
+                            flexDirection: "column",
                           }}
                         >
-                          {prices &&
-                            Object.keys(prices).map((key) => (
-                              <div key={key} id={key}>
-                                <input
-                                  type="radio"
-                                  id={key}
-                                  name="price"
-                                  value={key}
-                                  onClick={handleshow}
-                                  checked={selectedOption === key}
-                                  onChange={handleOptionChange}
-                                />
-                                <label
-                                  htmlFor={key}
-                                  style={{ marginLeft: "10px" }}
-                                >
-                                  {" "}
-                                  &nbsp;{key}
-                                </label>
-                              </div>
-                            ))}
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                            }}
+                          >
+                            {prices &&
+                              Object.keys(prices).map((key) => (
+                                <div key={key} id={key}>
+                                  <input
+                                    type="radio"
+                                    id={key}
+                                    name="price"
+                                    value={key}
+                                    onClick={handleshow}
+                                    checked={selectedOption === key}
+                                    onChange={handleOptionChange}
+                                  />
+                                  <label
+                                    htmlFor={key}
+                                    // style={{ marginLeft: "10px" }}
+                                  >
+                                    {" "}
+                                    &nbsp;{key}
+                                  </label>
+                                </div>
+                              ))}
+                          </div>
                         </div>
-                      </div>
-                    </center>
-                  </div>{" "}
-                  {showHide && (
-                    <div className="mt-3">
-                      <h5 className="label">
-                        Price :
-                        <b>
-                          <var className="price">
-                            &nbsp;{prices[showHide]}$ /{showHide}
-                          </var>
-                        </b>
-                      </h5>
-                    </div>
-                  )}
-                  {showHide === "Day" && (
-                    <div>
-                      <div className="mt-3 mb-2">
-                        <h5 className="label">Quantity</h5>
-                      </div>
-                      <button
-                        onClick={handleDecrease}
-                        className="btn btn-secondary"
-                      >
-                        -
-                      </button>{" "}
-                      &nbsp;
-                      {quantity} &nbsp;
-                      <button
-                        onClick={handleIncrease}
-                        className="btn btn-secondary"
-                      >
-                        +
-                      </button>
-                    </div>
-                  )}
-                  {showHide === "Weekdays" && (
-                    <div>
+                      </center>
+                    </div>{" "}
+                    {showHide && (
                       <div className="mt-3">
-                        {/* <h5 className="label">Enter Date Range</h5> */}
-                        {renderDatePickers()}
+                        <h6 className="label">
+                          Price:
+                          <b>
+                            <var className="price">
+                              &nbsp;{prices[showHide]}$ /{showHide}
+                            </var>
+                          </b>
+                        </h6>
                       </div>
-                      <div className="mt-3 mb-2">
-                        <h5 className="label">Quantity</h5>
+                    )}
+                    {showHide === "Day" && (
+                      <div>
+                        <div className="mt-3 mb-2">
+                          <h6 className="label">Quantity</h6>
+                        </div>
+                        <button
+                          onClick={handleDecrease}
+                          className="reduce--quantity-btn btn btn-outline-danger btn-lg"
+                        >
+                          -
+                        </button>{" "}
+                        &nbsp;
+                        {quantity} &nbsp;
+                        <button
+                          onClick={handleIncrease}
+                          className="increase--quantity-btn btn btn-outline-success btn-lg"
+                        >
+                          +
+                        </button>
                       </div>
-                      <button
-                        onClick={handleDecrease}
-                        className="btn btn-secondary"
-                      >
-                        -
-                      </button>{" "}
-                      &nbsp;
-                      {quantity} &nbsp;
-                      <button
-                        onClick={handleIncrease}
-                        className="btn btn-secondary"
-                      >
-                        +
-                      </button>
-                    </div>
-                  )}
-                  {showHide === "Week" && (
-                    <div>
-                      <div className="mt-3">
-                        {/* <h5 className="label">Enter Date Range</h5> */}
-                        {renderDatePickers()}
+                    )}
+                    {showHide === "Weekdays" && (
+                      <div>
+                        <div className="mt-3">
+                          {/* <h5 className="label">Enter Date Range</h5> */}
+                          {renderDatePickers()}
+                        </div>
+                        <div className="mt-3 mb-2">
+                          <h6 className="label">Quantity</h6>
+                        </div>
+                        <button
+                          onClick={handleDecrease}
+                          className="reduce--quantity-btn btn btn-outline-danger btn-lg"
+                        >
+                          -
+                        </button>{" "}
+                        &nbsp;
+                        {quantity} &nbsp;
+                        <button
+                          onClick={handleIncrease}
+                          className="increase--quantity-btn btn btn-outline-success btn-lg"
+                        >
+                          +
+                        </button>
                       </div>
-                      <div className="mt-3 mb-2">
-                        <h5 className="label">Quantity</h5>
+                    )}
+                    {showHide === "Week" && (
+                      <div>
+                        <div className="mt-3">
+                          {/* <h5 className="label">Enter Date Range</h5> */}
+                          {renderDatePickers()}
+                        </div>
+                        <div className="mt-3 mb-2">
+                          <h6 className="label">Quantity</h6>
+                        </div>
+                        <button
+                          onClick={handleDecrease}
+                          className="reduce--quantity-btn btn btn-outline-danger btn-lg"
+                        >
+                          -
+                        </button>{" "}
+                        &nbsp;
+                        {quantity} &nbsp;
+                        <button
+                          onClick={handleIncrease}
+                          className="increase--quantity-btn btn btn-outline-success btn-lg"
+                        >
+                          +
+                        </button>
                       </div>
-                      <button
-                        onClick={handleDecrease}
-                        className="btn btn-secondary"
-                      >
-                        -
-                      </button>{" "}
-                      &nbsp;
-                      {quantity} &nbsp;
-                      <button
-                        onClick={handleIncrease}
-                        className="btn btn-secondary"
-                      >
-                        +
-                      </button>
-                    </div>
-                  )}
-                  {showHide === "Fortnight" && (
-                    <div>
-                      <div className="mt-3">
-                        {/* <h5 className="label">Enter Date Range</h5> */}
-                        {renderDatePickers()}
+                    )}
+                    {showHide === "Fortnight" && (
+                      <div>
+                        <div className="mt-3">
+                          {/* <h5 className="label">Enter Date Range</h5> */}
+                          {renderDatePickers()}
+                        </div>
+                        <div className="mt-3 mb-2">
+                          <h6 className="label">Quantity</h6>
+                        </div>
+                        <button
+                          onClick={handleDecrease}
+                          className="reduce--quantity-btn btn btn-outline-danger btn-lg"
+                        >
+                          -
+                        </button>{" "}
+                        &nbsp;
+                        {quantity} &nbsp;
+                        <button
+                          onClick={handleIncrease}
+                          className="increase--quantity-btn btn btn-outline-success btn-lg"
+                        >
+                          +
+                        </button>
                       </div>
-                      <div className="mt-3 mb-2">
-                        <h5 className="label">Quantity</h5>
+                    )}
+                    {showHide === "Month" && (
+                      <div>
+                        <div className="mt-3">
+                          {/* <h5 className="label">Enter Date Range</h5> */}
+                          {renderDatePickers()}
+                        </div>
+                        <div className="mt-3 mb-2">
+                          <h6 className="label">Quantity</h6>
+                        </div>
+                        <button
+                          onClick={handleDecrease}
+                          className="reduce--quantity-btn btn btn-outline-danger btn-lg"
+                        >
+                          -
+                        </button>{" "}
+                        &nbsp;
+                        {quantity} &nbsp;
+                        <button
+                          onClick={handleIncrease}
+                          className="increase--quantity-btn btn btn-outline-success btn-lg"
+                        >
+                          +
+                        </button>
                       </div>
-                      <button
-                        onClick={handleDecrease}
-                        className="btn btn-secondary"
-                      >
-                        -
-                      </button>{" "}
-                      &nbsp;
-                      {quantity} &nbsp;
-                      <button
-                        onClick={handleIncrease}
-                        className="btn btn-secondary"
-                      >
-                        +
-                      </button>
-                    </div>
-                  )}
-                  {showHide === "Month" && (
-                    <div>
-                      <div className="mt-3">
-                        {/* <h5 className="label">Enter Date Range</h5> */}
-                        {renderDatePickers()}
-                      </div>
-                      <div className="mt-3 mb-2">
-                        <h5 className="label">Quantity</h5>
-                      </div>
-                      <button
-                        onClick={handleDecrease}
-                        className="btn btn-secondary"
-                      >
-                        -
-                      </button>{" "}
-                      &nbsp;
-                      {quantity} &nbsp;
-                      <button
-                        onClick={handleIncrease}
-                        className="btn btn-secondary"
-                      >
-                        +
-                      </button>
-                    </div>
-                  )}
-                </div>
-                <br></br>
+                    )}
+                  </div>
+                  <br></br>
 
-                <div className="">
-                  {/* <pre>{JSON.stringify(dataStore, null, 2) }</pre> */}
-                  <a className="btn btn-primary" onClick={handleClick}>
-                    Add to cart
-                  </a>
+                  <div className="">
+                    {/* <pre>{JSON.stringify(dataStore, null, 2) }</pre> */}
+                    <a className="btn btn-primary" onClick={handleClick}>
+                      Add to cart
+                    </a>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="col-md-3">
-              <div className="vendor-menu--card">
-                <h5 className="mt-4 mb-4">Menu</h5>
-                <div>
-                  {/* <h2>Menu</h2> */}
+              <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <div className="vendor-menu--card">
+                  <h5 className="mb-4 text-center">Menu</h5>
+                  <div>
+                    {/* <h2>Menu</h2> */}
 
-                  {/* <ul>
+                    {/* <ul>
                     {menu &&
                       Object.keys(menu).map((key) => (
                         <li key={key}>
@@ -504,30 +510,34 @@ function TiffinVendorDetails(props) {
                       ))}
                   </ul> */}
 
-<table className="table">
-  <thead>
-    <tr>
-      <th scope="col">Item</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <pre>{data.menu}</pre>
-      </td>
-    </tr>
-  </tbody>
-</table>
+                    <table className="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Item</th>
+                          <th scope="col">Price</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {menu &&
+                          Object.keys(menu).map((key) => (
+                            <tr key={key} scope="row">
+                              <td>{key}</td>
+                              <td>{menu[key]}</td>
+                            </tr>
+                          ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="col-md-3">
-              <div className="outer-wrapper">
-                <div className="frame">
-                  <img
-                    className="vendor--card-img img-responsive center-block d-block mx-auto"
-                    src={data.image}
-                  />  
+              <div className="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div className="outer-wrapper">
+                  <div className="frame">
+                    <img
+                      className="vendor--card-img img-responsive center-block d-block mx-auto"
+                      src={data.image}
+                    />
+                  </div>
                 </div>
               </div>
               <div>
@@ -535,7 +545,7 @@ function TiffinVendorDetails(props) {
             </div>
           </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 }

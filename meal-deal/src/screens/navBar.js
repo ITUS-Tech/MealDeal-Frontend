@@ -24,7 +24,7 @@ function NavBar(props) {
       <div className="container">
         <Link
           to={isLoggedIn && !isCustomer ? "/tiffin-vendor" : "/customer"}
-          className="navbar-brand fs-4 mx-4 fw-bold"
+          className="navbar-brand fs-4 fw-bold"
           style={{color: "#252525"}}>
           {/* Meal Deal */}
           <img src={Logo} />

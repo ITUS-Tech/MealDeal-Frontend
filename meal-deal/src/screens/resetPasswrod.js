@@ -7,6 +7,9 @@ const ResetPassword = () => {
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
 
+//   const sgMail = require('@sendgrid/mail');
+// sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -22,23 +25,53 @@ const ResetPassword = () => {
       setSuccessMessage("Reset password link has been sent to your email.");
       setError(null);
     }
+
+
+    // const msg = {
+    //   to: email,
+    //   from: 'your-email@example.com',
+    //   subject: 'Reset your password',
+    //   html: `<p>Click this <a href="https://your-app.com/reset-password/${email}">link</a> to reset your password.</p>`,
+    // };
+    
+    // sgMail.send(msg)
+    //   .then(() => {
+    //     setSuccessMessage("Reset password link has been sent to your email.");
+    //     setError(null);
+    //   })
+    //   .catch((error) => {
+    //     setError("Failed to send reset password email. Please try again later.");
+    //     setSuccessMessage(null);
+    //   });
   };
 
   return (
-    <div className="login-card">
-      <h1>Reset Password</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Email Address</label>
-        <input
-          type="email"
-          id="email"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-        />
-        {error && <div className="error">{error}</div>}
-        {successMessage && <div className="success">{successMessage}</div>}
-        <button className="btn btn-primary mx-auto" type="submit">Reset Password</button>
-      </form>
+    <div className="d-flex justify-content-center align-items-center">
+      <div className="container">
+        <div className="row d-flex justify-content-center align-items-center">
+          <div className="col-lg-3 col-md-3 card p-4 shadow-sm">
+          <h5 className="card-title mb-4 text-center">Reset Password</h5>
+            <form onSubmit={handleSubmit}>
+              <label htmlFor="email">Email Address</label>
+              <input
+                type="email"
+                id="email"
+                className="form-control mb-2"
+                placeholder="Email address"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+              />
+              {error && <div className="error">{error}</div>}
+              {successMessage && (
+                <div className="success">{successMessage}</div>
+              )}
+              <button className="btn btn-primary mt-3" type="submit">
+                Reset Password
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
