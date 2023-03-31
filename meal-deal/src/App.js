@@ -146,10 +146,10 @@ function App() {
         />
         <Route path="*" element={<NotFound />} />
         <Route
-          path="/customerprofile"
+          path="/profile"
           element={<CustomerProfile user={getUser} />}
         />
-        <Route path="/editprofile" element={<EditCustomerProfile />} />
+        <Route path="/editprofile" element={<EditCustomerProfile user={getUser} />} />
         <Route path="/payment/:id" element={<PaymentForm />} />
         <Route path="/confirm/:id" element={<ConfirmPage />} />
       </Routes>

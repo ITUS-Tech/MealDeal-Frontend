@@ -8,7 +8,7 @@ function TiffinVendorHome(props) {
   const [name, setName] = useState("");
 
   useEffect(() => {
-    const url = `https://mealdeal.herokuapp.com/order/3`;
+    const url = `https://mealdeal.herokuapp.com/order/${userId}`;
     const fetchData = async () => {
       try {
         await fetch(url)
@@ -69,12 +69,12 @@ function TiffinVendorHome(props) {
                             </div>
                             <div className="col-md-3">
                               <p className="mb-2 text-muted">
-                                Start Date: {plan.start}
+                                Start Date: {plan.startDate}
                               </p>
                             </div>
                             <div className="col-md-3">
                               <p className="mb-2 text-muted">
-                                End Date: {plan.end}
+                                End Date: {plan.endDate}
                               </p>
                             </div>
                           </div>

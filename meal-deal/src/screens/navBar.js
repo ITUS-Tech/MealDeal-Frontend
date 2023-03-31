@@ -67,7 +67,7 @@ function NavBar(props) {
               </button>
               <button
                 className="nav-link btn"
-                onClick={() => navigate("/customerprofile")}
+                onClick={() => navigate("/profile")}
               >
                 Profile
               </button>
@@ -82,15 +82,15 @@ function NavBar(props) {
             <ul className="navbar-nav ml-auto justify-content">
               <button
                 className="nav-link btn"
-                onClick={() => navigate("/tiffin-vendor/subscriptions")}
+                onClick={() => navigate("/vendorHome")}
               >
                 Dashboard
               </button>
               <button
                 className="nav-link btn"
-                onClick={() => navigate("/tiffin-vendor/edit")}
+                onClick={() => navigate("/profile")}
               >
-                Edit Details
+                Profile
               </button>
               <button className="nav-link btn" onClick={logOut}>
                 Logout
