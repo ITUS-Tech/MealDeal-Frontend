@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import FormInput from "../common/formInput";
+import { Button } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 
 function EditCustomerProfile(props){
@@ -13,6 +14,25 @@ function EditCustomerProfile(props){
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");   
     const {userId, isLoggedIn, isCustomer } = props.user();
+    const [vendorDetails, setVendorDetails] = useState({});
+    const [prices, setPrices]= useState({});
+    const [vendorName, setVendorName]= useState("");
+    const [vendorAddress, setVendorAddress]= useState("");
+    const [image, setImage]= useState("");
+    const [menu, setMenu]= useState("");
+
+    const[day, setDay]=useState(false)
+    const[week, setWeek]=useState(false)
+    const[weekend, setWeekend]=useState(false)
+    const[fortnight, setFortnight]=useState(false)
+    const[month, setMonth]=useState(false)
+
+    const[dayPrice, setDayPrice]=useState(0)
+    const[weekPrice, setWeekPrice]=useState(0)
+    const[weekendPrice, setWeekendPrice]=useState(0)
+    const[fortnightPrice, setFortnightPrice]=useState(0)
+    const[monthPrice, setMonthPrice]=useState(0)
+
 
     useEffect(() => {
     fetch(`http://mealdeal.herokuapp.com/user/${userId}`)
@@ -26,6 +46,21 @@ function EditCustomerProfile(props){
       setType(data.type);
       setPassword(data.password);
     });
+
+    fetch(`http://mealdeal.herokuapp.com/vendor/${userId}`)
+    .then((response) => response.json())
+    .then((res) => {
+      setVendorName(res.vendorName);
+      setVendorAddress(res.address);
+      setImage(res.image);
+      setMenu(res.menu);
+      setPrices(res.prices);
+      for(const key in prices){
+        console.log(prices[key]);
+
+      }
+    });
+
     }, [])
 
     let navigate = useNavigate();
@@ -93,9 +128,22 @@ function EditCustomerProfile(props){
         }
       };
 
+      const uploadImage= (event) =>{
+        const reader = new FileReader();
+    
+    if(event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+    
+      reader.onload = () => {
+        setImage(reader.result);
+      };
+    }
+  };
+
     return(
         <div className="container">
-        <div className="col-lg-3 col-md-3 col-sm-3 card p-4">
+        <div className="col-sm-7 card p-4">
         <form onSubmit={handleSubmit}>
               <h5 className="card-title text-center">Edit Profile</h5>
               <FormInput
@@ -131,10 +179,82 @@ function EditCustomerProfile(props){
                 required
               />
               {errorMessage && <div>{errorMessage}</div>}
-              <button className="btn btn-primary d-flex" type="submit">
-                Save
-              </button>
               </form>
+              { !isCustomer &&(
+                <form onSubmit={handleSubmit}>
+                      <h5 className="card-title text-center">Vendor Details</h5>
+                      <FormInput
+                        value={vendorName}
+                        type="text"
+                        id="vendorName"
+                        name={vendorName}
+                        onChange={(event) => setVendorName(event.target.value)}
+                        required
+                      />
+                      <FormInput
+                        value={vendorAddress}
+                        type="text"
+                        id="vendorAddress"
+                        name={vendorAddress}
+                        onChange={(event) => setVendorAddress(event.target.value)}
+                        required
+                      />
+                      <textarea
+                        id="menu"
+                        name={menu}
+                        type="textarea"
+                        rows="7"
+                        cols="93"
+                        value={menu}
+                        // className="form-control mb-2"
+                        placeholder={menu}
+                        onChange={(event) => setMenu(event.target.value)}
+                        >
+                      </textarea>
+                      {/* <FormInput
+                        value={menu}
+                        type="textarea"
+                        rows={5}
+                        id="phno"
+                        name={menu}
+                        onChange={(event) => setMenu(event.target.value)}
+                        required
+                      /> */}
+                      <FormInput
+                        type="file"
+                        id= "image"
+                        name= {image}
+                        onChange={(event)=>uploadImage(event)}
+                      />
+                      <table>
+                        <tr>
+                        {Object.keys(prices).map((key) => (
+                          <>
+                        <td>
+                      <label for={key}>{key}</label>
+                      <input
+                        type="checkbox"
+                        id={key}
+                        name="price"
+                        value={key}
+                      />
+                      </td>
+                      <td>
+                        <input type="text"/>
+                      </td>
+                      </>
+                      ))}
+                        </tr>
+                      </table>
+                      
+                      {errorMessage && <div>{errorMessage}</div>}
+                      </form>
+                      
+              )}
+              <br/>
+              <Button className="btn btn-primary" type="submit" >
+                Save
+              </Button>
               </div>
               </div>
     );

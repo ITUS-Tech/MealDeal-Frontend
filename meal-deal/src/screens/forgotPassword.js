@@ -36,6 +36,24 @@ const ForgotPassword = () => {
       });
       
     }
+
+
+    // const msg = {
+    //   to: email,
+    //   from: 'your-email@example.com',
+    //   subject: 'Reset your password',
+    //   html: `<p>Click this <a href="https://your-app.com/reset-password/${email}">link</a> to reset your password.</p>`,
+    // };
+    
+    // sgMail.send(msg)
+    //   .then(() => {
+    //     setSuccessMessage("Reset password link has been sent to your email.");
+    //     setError(null);
+    //   })
+    //   .catch((error) => {
+    //     setError("Failed to send reset password email. Please try again later.");
+    //     setSuccessMessage(null);
+    //   });
   };
 
   return (

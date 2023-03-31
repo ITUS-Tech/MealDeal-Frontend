@@ -119,7 +119,7 @@ function SignupForm() {
   };
 
   return (
-    <div className="bgImage">
+    <div className="bgImage d-flex">
       <div className="container">
         <div className="row">
           <div className="col-md-7 col-lg-7 col-sm-7">
@@ -127,7 +127,7 @@ function SignupForm() {
           </div>
           <div className="col-lg-5 col-md-5 col-sm-5 card p-4">
             <form onSubmit={handleSubmit}>
-              <h5 className="card-title text-center mb-4">Customer Register</h5>
+              <h5 className="card-title text-center mb-4 page--title">Register</h5>
               <div className="row">
                 <div className="col-6">
                   <FormInput
