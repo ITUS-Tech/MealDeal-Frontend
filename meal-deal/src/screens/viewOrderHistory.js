@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "../styles/viewOrderHistory.css";
 
 function ViewOrderHistory(props) {
-
   const userId = props.user;
   const [data, setData] = useState([]);
 
@@ -11,53 +10,48 @@ function ViewOrderHistory(props) {
     const fetchData = async () => {
       try {
         await fetch(url)
-        .then(response => response.json())
-        .then(res => setData(res));
-      }
-      catch (error) {
+          .then((response) => response.json())
+          .then((res) => setData(res));
+      } catch (error) {
         console.log("error", error);
       }
-    }
+    };
     fetchData();
   }, []);
 
   return (
     <React.Fragment>
-      <div className="container">
-        <div className="row mt-3">
-          <h3 className="mb-4">Your Orders:</h3>
-          {data &&
-            data.length > 0 &&
-            data.map((order) => (
-            <div className="col-lg-12 col-md-12 col-sm-12">
-              <div className="card shadow-sm">
-                <div className="card--body">
-                  <div className="card-content">
-                    <div className="">
-                      <h5 className="business-name">{order.vendorName}</h5>
-                      <hr></hr>
-                      {order.plans.map((plan) => (
-                        <div className="col-sm-12">
-                          <div className="row">
-                            <div className="col-md-3">
-                              <h6>
-                                Subscription Type: <b>{plan.subscription}</b>
-                              </h6>
-                            </div>
-                            
-                          </div>
-                        </div>
-                      ))}
-                      <p className="text-muted">
-                        TOTAL AMOUNT: <b>{order.totalAmount}</b>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+      <div>
+        <h5 className="mb-4 text-center">Your Order History</h5>
+        {data &&
+          data.length > 0 &&
+          data.map((order) => (
+            <div>
+              <h6 className="business-name text-center">{order.vendorName}</h6>
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Subscription type</th>
+                    <th>Start Date</th>
+                    <th>End Date:</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {order.plans.map((plan) => (
+                    <tr>
+                      <td>{plan.subscription}</td>
+                      <td>{plan.startDate}</td>
+                      <td>{plan.endDate}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              <p className="text-right">
+                TOTAL AMOUNT: <b>{order.totalAmount}</b>
+              </p>
             </div>
           ))}
-        </div>
       </div>
     </React.Fragment>
   );

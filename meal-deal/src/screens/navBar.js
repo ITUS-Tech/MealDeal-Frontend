@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import config from "../config.json";
 import "../styles/navBar.css";
+import Logo from "../images/MDLogo.png";
 
 function NavBar(props) {
   const { userId, isLoggedIn, isCustomer } = props.user();
@@ -23,9 +24,10 @@ function NavBar(props) {
       <div className="container">
         <Link
           to={isLoggedIn && !isCustomer ? "/tiffin-vendor" : "/customer"}
-          className="navbar-brand fs-4 mx-4 fw-bold"
+          className="navbar-brand fs-4 fw-bold"
           style={{color: "#252525"}}>
-          Meal Deal
+          {/* Meal Deal */}
+          <img src={Logo} />
         </Link>
         <button
           className="navbar-toggler"
@@ -80,7 +82,7 @@ function NavBar(props) {
             <ul className="navbar-nav ml-auto justify-content">
               <button
                 className="nav-link btn"
-                onClick={() => navigate("/vendorhome")}
+                onClick={() => navigate("/vendorHome")}
               >
                 Dashboard
               </button>

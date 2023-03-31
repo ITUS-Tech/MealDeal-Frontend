@@ -3,7 +3,7 @@ import React from "react";
 function FormInput(props) {
   const { type, value, name, onChange } = props;
   return (
-    <div className="form-group">
+    <div>
       <input
         name={name}
         type={type}

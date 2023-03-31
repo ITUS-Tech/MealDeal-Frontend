@@ -108,7 +108,7 @@ function CustomerHome(props) {
         {tiffinVendors.length !== 0 && (
           <div>
             <div className="row">
-              <div className="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+              <div className="col-lg-3 col-md-3 col-sm-6 col-xs-6 offset-md-9">
                 <select
                   className="form-select"
                   onChange={handleSortOption}
@@ -119,10 +119,10 @@ function CustomerHome(props) {
                   <option value="desc">Price: High to Low</option>
                 </select>
               </div>
-              <div className="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+              {/* <div className="col-lg-3 col-md-3 col-sm-6 col-xs-6">
                 <label className="switch">
                   <input
-                    className=""
+                    className="form-control"
                     type="checkbox"
                     name="veg filter"
                     value={vegFilter}
@@ -131,7 +131,7 @@ function CustomerHome(props) {
                   />
                 </label>
                 <span className="p-3">Veg Only?</span>
-              </div>
+              </div> */}
             </div>
             <div className="row mt-3">
               {tiffinVendors &&
@@ -155,7 +155,7 @@ function CustomerHome(props) {
                     }
                   })
                   .map((value) => (
-                    <div className="col-lg-3 col-md-3 col-sm-12" key={value.id} onClick={() => navigate(`/vendor/${value.id}`)}>
+                    <div className="col-lg-3 col-md-3 col-sm-6 mt-3" key={value.id} onClick={() => navigate(`/vendor/${value.id}`)}>
                       <div className="tiffin-vendor-card card shadow-sm">
                         <div className="card--body">
                           <img

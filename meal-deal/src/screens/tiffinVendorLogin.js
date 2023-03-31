@@ -51,15 +51,12 @@ function LoginPage() {
   };
 
   return (
-    <div className="bgImage">
+    <div className="bgImage d-flex justify-content-center align-items-center">
       <div className="container">
         <div className="row">
-          <div className="col-md-9 col-lg-9 col-sm-9">
-            <p>Hello there</p>
-          </div>
-          <div className="col-lg-3 col-md-3 col-sm-3 card p-4">
+          <div className="col-lg-3 col-md-3 col-sm-3 card p-4 offset-md-9 offset-lg-9 offset-sm-9 ">
             <form onSubmit={handleLogin}>
-              <h5 className="card-title mb-4 text-center">Vendor Login</h5>
+              <h5 className="card-title mb-4 text-center page--title">Vendor Login</h5>
               <FormInput
                 value={email}
                 type="text"
@@ -72,7 +69,7 @@ function LoginPage() {
                 name="Password"
                 onChange={(event) => setPassword(event.target.value)}
               />
-              <button className="btn btn-primary mx-auto" type="submit">
+              <button className="btn btn-primary mt-3" type="submit">
                 Login
               </button>
               {errorMessage && (
