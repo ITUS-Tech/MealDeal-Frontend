@@ -21,6 +21,7 @@ function CustomerProfile(props) {
       .then((res) => {
         setVendorDetails(res);
         setPrices(res.prices);
+        console.log(prices);
       });
   }, []);
 

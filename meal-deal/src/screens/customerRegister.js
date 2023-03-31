@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/signup.css";
 import FormInput from "../common/formInput";
 
@@ -13,6 +13,7 @@ function SignupForm() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [type, setType] = useState("");
+  const navigate= useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -108,9 +109,13 @@ function SignupForm() {
         })
         .then((res) => {
           console.log(res.id, res.name);
+          let isCustomer= formData.type === "customer";
           localStorage.setItem("userId", res.id);
-          localStorage.setItem("isCustomer", formData.type === "customer");
-          window.location.href = "/";
+          localStorage.setItem("isCustomer", isCustomer);
+          if(isCustomer)
+            navigate("/");
+          else
+            navigate("/editprofile")
         });
     } catch (error) {
       setErrorMessage("Something went wrong, please try again later.");

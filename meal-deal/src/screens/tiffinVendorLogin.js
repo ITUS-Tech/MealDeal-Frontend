@@ -90,7 +90,7 @@ function LoginPage() {
             <h6 className="message mt-1">
               <center>
                 Not Registered?{" "}
-                <Link className="pointer" to="/tiffin-vendor/register">
+                <Link className="pointer" to="/customer/register">
                   Register
                 </Link>
               </center>
