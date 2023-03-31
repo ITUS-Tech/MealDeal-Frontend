@@ -1,13 +1,17 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import "../styles/login.css";
 
-const ResetPassword = () => {
+const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
-
-  const handleSubmit = (event) => {
+  const navigate= useNavigate()
+  const delay = ms => new Promise(
+    resolve => setTimeout(resolve, ms)
+  );
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (!email) {
@@ -17,16 +21,26 @@ const ResetPassword = () => {
       setError("Please enter a valid email address.");
       setSuccessMessage(null);
     } else {
-      // send reset password link to the email
-      // add your own code here to send the email
-      setSuccessMessage("Reset password link has been sent to your email.");
-      setError(null);
+      await fetch(`https://mealdeal.herokuapp.com/forgot`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({email}),
+      }).then(async () => {
+          setSuccessMessage("Reset password link has been sent to your email if it exists.");
+          setError(null);
+          localStorage.setItem("forgotEmail",email);
+          await delay(3000);
+          navigate("/checkotp");
+      });
+      
     }
   };
 
   return (
     <div className="login-card">
-      <h1>Reset Password</h1>
+      <h1>Forgot Password</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email Address</label>
         <input
@@ -37,10 +51,10 @@ const ResetPassword = () => {
         />
         {error && <div className="error">{error}</div>}
         {successMessage && <div className="success">{successMessage}</div>}
-        <button className="btn btn-primary mx-auto" type="submit">Reset Password</button>
+        <button className="btn btn-primary mx-auto" type="submit">Send OTP</button>
       </form>
     </div>
   );
 };
 
-export default ResetPassword;
+export default ForgotPassword;

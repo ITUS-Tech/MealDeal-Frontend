@@ -42,9 +42,15 @@ function LoginPage(props) {
         })
         .then((res) => {
           console.log(res);
-          localStorage.setItem("userId", res);
-          localStorage.setItem("isCustomer", true);
-          window.location.href = "/";
+          if(res>0){
+            localStorage.setItem("userId", res);
+            localStorage.setItem("isCustomer", true);
+            window.location.href = "/";
+          }
+          else if(res==0)
+            setErrorMessage("Wrong Password");
+          else
+            setErrorMessage("User does not exists")
         });
     } catch (error) {
       setErrorMessage("Something went wrong, please try again later.");

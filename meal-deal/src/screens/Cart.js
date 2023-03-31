@@ -14,12 +14,17 @@ function Cart(props) {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
+    if(!isCustomer){
+      alert("Please login to access cart");
+      navigate("/customer/login");
+    }
+    else{
       axios.get(`https://mealdeal.herokuapp.com/cart/${userId}`)
       .then((respnse) => {
         setCart(respnse.data);
         setItems(respnse.data.items);
       })
-  }, [])
+  }}, []);
   
   console.log(cart);
 

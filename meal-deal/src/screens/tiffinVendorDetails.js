@@ -4,16 +4,16 @@ import React, { useEffect, useState } from "react";
 import "../styles/tiffinVendorDetails.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getDate } from "date-fns";
 import "../styles/vendorDetails.css";
+import { Alert } from "reactstrap";
 
 function TiffinVendorDetails(props) {
   const { userId, isLoggedIn, isCustomer } = props.user();
   const params = useParams();
   const [data, setData] = useState({});
   const [prices, setPrices] = useState({});
-  const [menu, setMenu] = useState({});
   const [showHide, setShowHide] = useState("");
   const [showPrice, setShowPrice] = useState("");
   const [selectedOption, setSelectedOption] = useState("Day");
@@ -23,6 +23,7 @@ function TiffinVendorDetails(props) {
   const [isSelected, setIsSelected] = useState(false);
   const [index, setIndex] = useState(0);
   const [opacity, setOpacity] = useState(0.1);
+  const navigate= useNavigate();
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
@@ -151,7 +152,6 @@ function TiffinVendorDetails(props) {
           .then((response) => response.json())
           .then((res) => {
             setData(res);
-            setMenu(res.menu);
             setPrices(res.prices);
             console.log(res);
             console.log(res.menu);
@@ -166,6 +166,12 @@ function TiffinVendorDetails(props) {
   }, []);
 
   async function handleClick() {
+    console.log(startDate.toDateString());
+
+    if(!isLoggedIn){
+      alert("Please sign in to add items to cart");
+      navigate("/customer/login");
+    }
     var dataStore = {
       userId: 1,
       vendorId: data.id,
@@ -177,8 +183,11 @@ function TiffinVendorDetails(props) {
           quantity: quantity,
         },
       ],
+      startDate: startDate.toDateString(),
+      endDate: endDate.toDateString()
     };
 
+    console.log(dataStore);
     // Send data to the backend via POST
     await fetch(`http://mealdeal.herokuapp.com/cart/add/${userId}`, {
       // Enter your IP address here
@@ -189,6 +198,7 @@ function TiffinVendorDetails(props) {
       },
       body: JSON.stringify(dataStore),
     });
+    alert("Added to Cart")
   }
 
   return (
@@ -388,34 +398,9 @@ function TiffinVendorDetails(props) {
               <div className="vendor-menu--card">
                 <h5 className="mt-4 mb-4">Menu</h5>
                 <div>
-                  {/* <h2>Menu</h2> */}
-
-                  {/* <ul>
-                    {menu &&
-                      Object.keys(menu).map((key) => (
-                        <li key={key}>
-                          {key}: {menu[key]}
-                        </li>
-                      ))}
-                  </ul> */}
-
-                  <table className="table">
-                    <thead>
-                      <tr>
-                        <th scope="col">Item</th>
-                        <th scope="col">Price</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {menu &&
-                        Object.keys(menu).map((key) => (
-                          <tr key={key} scope="row">
-                            <td>{key}</td>
-                            <td>{menu[key]}</td>
-                          </tr>
-                        ))}
-                    </tbody>
-                  </table>
+                  <pre>
+                    {data.menu}
+                  </pre>
                 </div>
               </div>
             </div>
